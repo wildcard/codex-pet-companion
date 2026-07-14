@@ -1,5 +1,24 @@
 import { expect, test } from '@playwright/test';
 
+test('publishes modern favicon and install metadata', async ({ page, request }) => {
+  await page.goto('/');
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', 'favicon-96x96.png');
+  await expect(page.locator('link[rel="shortcut icon"]')).toHaveAttribute('href', 'favicon.ico');
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('sizes', '180x180');
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'site.webmanifest');
+
+  const manifestResponse = await request.get('/site.webmanifest');
+  expect(manifestResponse.ok()).toBe(true);
+  const manifest = await manifestResponse.json();
+  expect(manifest.icons).toEqual(expect.arrayContaining([
+    expect.objectContaining({ src: '/web-app-manifest-192x192.png', sizes: '192x192' }),
+    expect.objectContaining({ src: '/web-app-manifest-512x512.png', sizes: '512x512' }),
+  ]));
+  for (const path of ['/favicon.ico', '/favicon-96x96.png', '/apple-touch-icon.png']) {
+    expect((await request.get(path)).ok()).toBe(true);
+  }
+});
+
 test('Kavana loads transparently under a self-only script CSP', async ({ page }) => {
   const externalRequests: string[] = [];
   const cspErrors: string[] = [];

@@ -28,3 +28,19 @@ test('Kavana site embeds the self-hosted SDK without external requests', async (
   expect(await pet.getAttribute('data-page-roaming')).toBeNull();
   expect(externalRequests).toEqual([]);
 });
+
+test('Kavana publishes modern favicon and install metadata', async ({ page, request }) => {
+  await page.goto('/');
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', 'favicon-96x96.png');
+  await expect(page.locator('link[rel="shortcut icon"]')).toHaveAttribute('href', 'favicon.ico');
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('sizes', '180x180');
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'site.webmanifest');
+
+  const manifestResponse = await request.get('/site.webmanifest');
+  expect(manifestResponse.ok()).toBe(true);
+  const manifest = await manifestResponse.json();
+  expect(manifest.short_name).toBe('Kavana');
+  for (const path of ['/favicon.ico', '/favicon-96x96.png', '/apple-touch-icon.png']) {
+    expect((await request.get(path)).ok()).toBe(true);
+  }
+});
