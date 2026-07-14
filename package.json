@@ -1,0 +1,97 @@
+{
+  "name": "codex-pet-companion",
+  "version": "0.1.0",
+  "description": "Put any Codex pet on any website. Framework-neutral Web Component, React adapter, CLI, and Kavana included.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Project Caro contributors",
+  "homepage": "https://github.com/wildcard/codex-pet-companion#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildcard/codex-pet-companion.git"
+  },
+  "bugs": "https://github.com/wildcard/codex-pet-companion/issues",
+  "keywords": [
+    "codex",
+    "pet",
+    "web-component",
+    "companion",
+    "spritesheet",
+    "kavana"
+  ],
+  "sideEffects": ["./dist/index.js", "./dist/react.js", "./dist/codex-pet-companion.global.js"],
+  "files": [
+    "dist",
+    "pets",
+    "skills",
+    "README.md",
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/codex-pet-companion.global.js",
+  "jsdelivr": "./dist/codex-pet-companion.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./package.json": "./package.json",
+    "./pets/*": "./pets/*"
+  },
+  "bin": {
+    "codex-pet-web": "./dist/cli.js",
+    "codex-pet-companion": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "vite --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "test:examples": "pnpm --recursive --filter './examples/**' build",
+    "test:pack": "node scripts/package-smoke.mjs",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "check:skill": "node scripts/validate-skill.mjs",
+    "verify": "pnpm typecheck && pnpm test && pnpm build && pnpm test:examples && pnpm check:bundle && pnpm check:skill && pnpm test:pack && pnpm test:browser",
+    "prepack": "pnpm build && pnpm check:bundle",
+    "deploy": "pnpm build:docs && wrangler deploy",
+    "build:docs": "node scripts/build-docs.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "@vitejs/plugin-react": "^4.6.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.0",
+    "wrangler": "^4.26.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "packageManager": "pnpm@11.1.3+sha512.c85357fe17ca12dd23dd7071822666dfd7e3cb76fe214e3370b5ea2fb34f2a231185509b63e717f3cd0acb38dd3f8d82bcd5e8172400ae678b70ea4fbed0896d"
+}

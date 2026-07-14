@@ -1,0 +1,13 @@
+name: Feature request
+description: Propose a focused, reusable improvement.
+title: "feature: "
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes: { label: User outcome }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Proposed API or behavior }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Alternatives considered }

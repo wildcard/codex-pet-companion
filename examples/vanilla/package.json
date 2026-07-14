@@ -1,0 +1,8 @@
+{
+  "name": "codex-pet-companion-example-vanilla",
+  "private": true,
+  "type": "module",
+  "scripts": { "prebuild": "node ../../scripts/copy-example-pet.mjs .", "build": "vite build" },
+  "dependencies": { "codex-pet-companion": "workspace:*" },
+  "devDependencies": { "vite": "^7.0.0" }
+}

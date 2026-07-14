@@ -1,0 +1,7 @@
+{
+  "id": "kavana-v1-fixture",
+  "displayName": "Kavana v1 fixture",
+  "description": "Nine-row compatibility fixture derived from Kavana for SDK tests.",
+  "spriteVersionNumber": 1,
+  "spritesheetPath": "spritesheet.webp"
+}

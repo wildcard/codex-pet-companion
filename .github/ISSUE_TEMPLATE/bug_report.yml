@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible SDK, pet compatibility, CLI, or skill problem.
+title: "bug: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes: { label: What happened? }
+    validations: { required: true }
+  - type: input
+    attributes: { label: Package version }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Minimal reproduction and browser/framework }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Pet manifest and atlas dimensions }
+    validations: { required: true }

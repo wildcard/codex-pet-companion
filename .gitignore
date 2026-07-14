@@ -1,0 +1,11 @@
+node_modules/
+dist/
+site/
+examples/*/public/pets/
+.skill-dist/
+playwright-report/
+test-results/
+coverage/
+*.tgz
+.wrangler/
+.DS_Store
