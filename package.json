@@ -5,7 +5,7 @@
   "type": "module",
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Project Caro contributors",
-  "homepage": "https://github.com/wildcard/codex-pet-companion#readme",
+  "homepage": "https://pets.caro.sh",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wildcard/codex-pet-companion.git"

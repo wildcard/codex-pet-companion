@@ -15,6 +15,8 @@ This is a community project. It is not affiliated with or endorsed by OpenAI. Co
 
 The script defines `<codex-pet-companion>` and resolves Kavana from the same pinned npm package. Pin the version in production.
 
+The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js`.
+
 ## npm
 
 ```bash
@@ -110,7 +112,7 @@ The skill wraps installs and deployments with Kavana's terminal zoomies and carr
 
 ## Publishing
 
-Releases publish from GitHub Actions with npm provenance. The first release uses a temporary bootstrap token; subsequent releases use tokenless npm trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure.
+Releases publish from GitHub Actions with npm provenance. The first release uses a temporary bootstrap token; subsequent releases use tokenless npm trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure and [docs/DEPLOYING.md](docs/DEPLOYING.md) for the Cloudflare demo deployment.
 
 ## Accessibility and CSP
 
