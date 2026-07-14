@@ -35,12 +35,14 @@ npm install codex-pet-companion
 <codex-pet-companion></codex-pet-companion>
 ```
 
+> **Strict-CSP note:** the bare element still loads Kavana's `pet.json` and `spritesheet.webp` from unpkg. If your policy uses `connect-src 'self'` and `img-src 'self'`, run `npx codex-pet-companion init .` and use the generated local `manifest-url` and `atlas-url` paths instead.
+
 Use any Codex pet by serving its normal two-file package:
 
 ```html
 <codex-pet-companion
-  manifest-url="/pets/my-pet/pet.json"
-  atlas-url="/pets/my-pet/spritesheet.webp"
+  manifest-url="/codex-pets/my-pet/pet.json"
+  atlas-url="/codex-pets/my-pet/spritesheet.webp"
 ></codex-pet-companion>
 ```
 
@@ -52,7 +54,7 @@ Valid v1 atlases are 1536×1872. Valid v2 atlases are 1536×2288 and add sixteen
 import { createCodexPetCompanion } from 'codex-pet-companion';
 
 const pet = createCodexPetCompanion({
-  manifestUrl: '/pets/my-pet/pet.json',
+  manifestUrl: '/codex-pets/my-pet/pet.json',
   mode: 'floating',
   behaviors: { roam: true, drag: true, tuck: true, sleep: true },
   dialogue: [{
@@ -76,7 +78,7 @@ Public methods: `play`, `zoomies`, `sleep`, `wake`, `tuck`, and `recall`. Events
 import { CodexPetCompanion } from 'codex-pet-companion/react';
 
 export function AppPet() {
-  return <CodexPetCompanion manifestUrl="/pets/my-pet/pet.json" />;
+  return <CodexPetCompanion manifestUrl="/codex-pets/my-pet/pet.json" />;
 }
 ```
 
@@ -86,7 +88,7 @@ Existing React experiences can adopt only the 4 KB animation primitive and keep 
 import { SpriteAnimator } from 'codex-pet-companion/animator';
 
 const animator = new SpriteAnimator(element, {
-  atlasUrl: '/pets/my-pet/spritesheet.webp',
+  atlasUrl: '/codex-pets/my-pet/spritesheet.webp',
   scale: 0.5,
 });
 animator.setState('running-right');
@@ -99,6 +101,15 @@ Kavana does terminal zoomies while the default pet is scaffolded:
 ```bash
 npx codex-pet-companion init .
 npx codex-pet-companion validate public/codex-pets/kavana/pet.json
+npx codex-pet-companion zoomies "Preparing your pet"
+```
+
+`codex-pet-companion` and `codex-pet-web` are aliases for the same package CLI, so either bin name works for `init`, `validate`, and the message-only `zoomies` command.
+
+The installed agent skill also includes a command wrapper that keeps Kavana doing terminal zoomies while another command runs. The `--` separator is required:
+
+```bash
+node .agents/skills/codex-pet-web/scripts/zoomies.mjs -- npm test
 ```
 
 ## Agent skill
@@ -127,7 +138,7 @@ The inaugural version bootstraps the npm namespace interactively; subsequent rel
 - Coarse pointers keep controls visible.
 - `prefers-reduced-motion` stops sprite and roaming animation.
 - All pet surfaces remain transparent; there is no MP4/video fallback.
-- Self-host the bundle and the two pet files to run with `script-src 'self'` and `img-src 'self'`.
+- The bare element loads Kavana's manifest and atlas from unpkg. For `script-src 'self'`, `connect-src 'self'`, and `img-src 'self'`, run `npx codex-pet-companion init .`, self-host the bundle, and set `manifest-url="/codex-pets/kavana/pet.json"` plus `atlas-url="/codex-pets/kavana/spritesheet.webp"`.
 
 ## Ecosystem
 

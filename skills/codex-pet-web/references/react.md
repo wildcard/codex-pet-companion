@@ -6,7 +6,7 @@ Install `codex-pet-companion`, then use the thin adapter:
 import { CodexPetCompanion } from 'codex-pet-companion/react';
 
 export function Pet() {
-  return <CodexPetCompanion mode="floating" manifestUrl="/pets/my-pet/pet.json" />;
+  return <CodexPetCompanion mode="floating" manifestUrl="/codex-pets/my-pet/pet.json" />;
 }
 ```
 
