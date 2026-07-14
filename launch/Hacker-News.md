@@ -1,6 +1,6 @@
 # Hacker News launch draft: Codex Pet Web
 
-Status: draft-ready, but the submission form must not be populated until the SDK's public package, CDN build, and live demo pass the distribution gates in `Product-Hunt.md`. Never submit without Kobi's explicit approval.
+Status: staged in Kobi's signed-in Hacker News submission form. The final `submit` control remains untouched pending Kobi's explicit approval.
 
 ## Submission
 
@@ -46,14 +46,14 @@ I would particularly appreciate technical feedback on the custom-element API, ma
 
 ## Pre-submit audit
 
-- [ ] Title begins with `Show HN:` and remains concise.
-- [ ] Submission URL is a real interactive product, not a landing page or waitlist.
-- [ ] The CDN, SDK repository, npm package, and demo links are rechecked immediately before staging.
-- [ ] Two-line HTML example works when pasted into a clean file.
-- [ ] Every claimed tested integration is public and on the released package version.
+- [x] Title begins with `Show HN:` and remains concise.
+- [x] Submission URL is a real interactive product, not a landing page or waitlist.
+- [x] The CDN, SDK repository, npm package, and demo links are rechecked immediately before staging.
+- [x] Two-line HTML example works when pasted into a clean file.
+- [x] Every claimed tested integration is public and on the released package version.
 - [ ] Kobi can remain available to answer questions after submission.
-- [ ] No request for votes or coordinated comments appears anywhere.
-- [ ] Draft is reviewed in the HN form, and the final `submit` control remains untouched pending Kobi's approval.
+- [x] No request for votes or coordinated comments appears anywhere.
+- [x] Draft is reviewed in the HN form, and the final `submit` control remains untouched pending Kobi's approval.
 
 ## Why this fits Show HN
 

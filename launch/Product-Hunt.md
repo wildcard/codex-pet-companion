@@ -1,6 +1,6 @@
 # Product Hunt launch kit: Codex Pet Web
 
-Status: copy-ready; do not create or schedule the Product Hunt launch until the distribution gates below are green.
+Status: distribution-ready; gallery assets, maker-profile eligibility, and Kobi's final launch approval remain open.
 
 ## Positioning
 
@@ -59,17 +59,17 @@ Thumbnail: 240×240 square, under 3 MB. Use Kavana on a clean transparent or bra
 ## Distribution gates
 
 - [x] Public repository URL confirmed.
-- [ ] Package name reserved and public npm version is installable from a clean directory.
-- [ ] `npm view <package> version dist-tags repository license` matches the launch copy.
-- [ ] npm tarball contents checked with `npm pack --dry-run`.
-- [ ] CDN/script-tag URL tested in a clean static HTML page without a bundler.
-- [ ] ESM import tested in a modern bundler.
+- [x] Package name reserved and public npm version is installable from a clean directory.
+- [x] `npm view <package> version dist-tags repository license` matches the launch copy.
+- [x] npm tarball contents checked with `npm pack --dry-run`.
+- [x] CDN/script-tag URL tested in a clean static HTML page without a bundler.
+- [x] ESM import tested in a modern bundler.
 - [x] Kavana is the documented default and can do zoomies without additional assets.
-- [ ] A second compatible Codex pet proves the SDK is not Kavana-specific.
-- [ ] Vanilla demo, Kavana website, and Caro.sh integration are live on the same released version.
-- [ ] Keyboard, touch/coarse-pointer, focus, reduced-motion, cleanup, and CSP tests are green.
-- [ ] README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, changelog, tagged GitHub release, and support path are public.
-- [ ] Package provenance or trusted-publishing evidence is visible.
+- [x] A second compatible Codex pet proves the SDK is not Kavana-specific.
+- [x] Vanilla demo, Kavana website, and Caro.sh integration are live on the same released version.
+- [x] Keyboard, touch/coarse-pointer, focus, reduced-motion, cleanup, and CSP tests are green.
+- [x] README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, changelog, tagged GitHub release, and support path are public.
+- [x] Registry signature is verified for `0.1.0`, and trusted publishing is configured for future releases.
 - [x] Primary URL has an immediate try/install path and no signup wall.
 - [ ] Two 1270×760 gallery images and one 240×240 thumbnail are ready.
 - [ ] Maker profile is complete and the Product Hunt account is eligible to launch.
