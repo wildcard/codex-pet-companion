@@ -10,7 +10,7 @@ Title:
 
 URL:
 
-> `https://pets.caro.sh`
+> `https://codexpet.dev`
 
 Use the live, interactive SDK demo or documentation page where readers can immediately try Kavana and copy a working npm/CDN example. Do not use a waitlist or static announcement page.
 

@@ -20,4 +20,4 @@ The package continues to include:
 - `codex-pet-web` CLI plus hosted agent skill with terminal zoomies;
 - npm, unpkg, and jsDelivr entrypoints;
 - vanilla, React, strict-CSP, desktop, mobile, package, bundle-size, Kavana-site, and Caro-site verification;
-- live field guides at https://pets.caro.sh and https://kavana.caro.sh/#web-sdk.
+- live field guides at https://codexpet.dev and https://kavana.pet/#web-sdk.

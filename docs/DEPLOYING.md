@@ -3,7 +3,7 @@
 The npm package and the demonstration website are independent release surfaces:
 
 - npm, unpkg, and jsDelivr distribute the reusable SDK;
-- Cloudflare serves the interactive field guide at `pets.caro.sh`.
+- Cloudflare serves the interactive field guide at `codexpet.dev`; `pets.caro.sh` remains a compatibility route.
 
 The field guide uses only files produced by `pnpm build:docs`. It does not require a Worker handler, database, runtime secret, analytics service, or private API.
 
@@ -17,12 +17,12 @@ pnpm verify
 pnpm deploy
 ```
 
-`pnpm deploy` rebuilds `site/` and deploys it with `wrangler.jsonc`. The configured custom domain is `pets.caro.sh`.
+`pnpm deploy` rebuilds `site/` and deploys it with `wrangler.jsonc`. The primary custom domain is `codexpet.dev`, with `pets.caro.sh` retained as a compatibility route.
 
 ## Verify production
 
 ```bash
-curl --fail --silent --show-error https://pets.caro.sh/ > /dev/null
+curl --fail --silent --show-error https://codexpet.dev/ > /dev/null
 pnpm test:live
 ```
 
