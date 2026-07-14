@@ -23,6 +23,7 @@ function getTemplate(): HTMLTemplateElement {
     :host { --codex-pet-ink:#251f1b; --codex-pet-panel:#fff8e8; --codex-pet-accent:#b9e4ce; --codex-pet-border:#38271d; --codex-pet-focus:#139979; --codex-pet-z:90; display:block; color:var(--codex-pet-ink); font-family:ui-sans-serif,system-ui,sans-serif; }
     :host([mode="floating"]), :host(:not([mode])) { position:fixed; left:0; top:0; z-index:var(--codex-pet-z); transform:translate3d(var(--pet-x,-140px),var(--pet-y,calc(100vh - 150px)),0); transition:transform var(--pet-travel,0ms) cubic-bezier(.42,0,.24,1); }
     :host([mode="inline"]) { position:relative; width:max-content; }
+    :host([data-page-roaming]) { position:fixed; left:0; top:0; z-index:var(--codex-pet-z); width:max-content; pointer-events:none; transform:translate3d(var(--pet-x,-140px),var(--pet-y,calc(100vh - 150px)),0); transition:transform var(--pet-travel,0ms) cubic-bezier(.42,0,.24,1); }
     .wrap { position:relative; display:grid; justify-items:center; width:max-content; }
     .pet { appearance:none; display:grid; justify-items:center; border:0; padding:0; color:inherit; background:transparent; cursor:grab; touch-action:none; user-select:none; filter:drop-shadow(0 12px 14px rgb(31 20 13 / .24)); }
     .pet:active { cursor:grabbing; }
@@ -81,6 +82,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   #abort?: AbortController;
   #roamTimer?: ReturnType<typeof setTimeout>;
   #sleepTimer?: ReturnType<typeof setTimeout>;
+  #zoomiesToken = 0;
   #drag?: DragSession;
   #position = { x: 22, y: 0 };
   #topic = 0;
@@ -144,6 +146,43 @@ export class CodexPetCompanionElement extends HTMLElementBase {
       return;
     }
     this.#animator?.play(state, options);
+  }
+
+  async zoomies(): Promise<void> {
+    if (!this.#manifest) return;
+    const token = ++this.#zoomiesToken;
+    clearTimeout(this.#roamTimer);
+    this.dispatchEvent(new CustomEvent('codex-pet-zoomies-start', { bubbles: true }));
+
+    if (this.#reducedMotion) {
+      this.play('waving', { loop: false, returnTo: 'idle' });
+      this.dispatchEvent(new CustomEvent('codex-pet-zoomies-end', { bubbles: true }));
+      return;
+    }
+
+    const inline = this.getAttribute('mode') === 'inline';
+    if (inline) this.setAttribute('data-page-roaming', '');
+    const route = [
+      { x: -130, y: Math.max(20, innerHeight - 150), state: 'running-right' as const, travel: 0, wait: 50 },
+      { x: Math.max(20, innerWidth - 140), y: Math.max(20, innerHeight - 150), state: 'running-right' as const, travel: 1800, wait: 1850 },
+      { x: Math.max(20, innerWidth * .62), y: Math.max(30, innerHeight * .25), state: 'jumping' as const, travel: 650, wait: 800 },
+      { x: 20, y: Math.max(30, innerHeight * .55), state: 'running-left' as const, travel: 1700, wait: 1750 },
+      { x: Math.max(20, innerWidth * .5), y: Math.max(20, innerHeight - 165), state: 'waving' as const, travel: 900, wait: 1200 },
+    ];
+
+    for (const step of route) {
+      if (token !== this.#zoomiesToken || !this.isConnected) return;
+      this.#position = { x: step.x, y: step.y };
+      this.#place(step.x, step.y, step.travel);
+      this.#animator?.setState(step.state);
+      await new Promise((resolve) => setTimeout(resolve, step.wait));
+    }
+
+    if (token !== this.#zoomiesToken || !this.isConnected) return;
+    if (inline) this.removeAttribute('data-page-roaming');
+    this.#animator?.setState('idle');
+    if (!inline) this.#startRoam();
+    this.dispatchEvent(new CustomEvent('codex-pet-zoomies-end', { bubbles: true }));
   }
 
   sleep(): void { this.#sleeping = true; this.play('sleeping', { loop: false }); this.#updateControls(); this.#persist(); }
@@ -243,6 +282,8 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   }
 
   #cleanup(full = true): void {
+    this.#zoomiesToken += 1;
+    this.removeAttribute('data-page-roaming');
     this.#abort?.abort();
     this.#animator?.destroy();
     clearTimeout(this.#roamTimer);

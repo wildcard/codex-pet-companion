@@ -20,5 +20,11 @@ test('Kavana site embeds the self-hosted SDK without external requests', async (
   expect(await pet.getAttribute('style')).toBeNull();
   expect(await sprite.getAttribute('style')).toBeNull();
   await page.getByRole('button', { name: 'Ask the SDK to wave' }).click();
+  const zoomies = page.getByRole('button', { name: 'Send Kavana roaming' });
+  await zoomies.click();
+  await expect(pet).toHaveAttribute('data-page-roaming', '');
+  await expect(zoomies).toBeDisabled();
+  await expect(zoomies).toBeEnabled({ timeout: 8_000 });
+  expect(await pet.getAttribute('data-page-roaming')).toBeNull();
   expect(externalRequests).toEqual([]);
 });

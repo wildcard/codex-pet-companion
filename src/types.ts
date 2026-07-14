@@ -58,6 +58,7 @@ export interface CompanionController {
   pause(): void;
   resume(): void;
   destroy(): void;
+  zoomies?(): Promise<void>;
   readonly state: CompanionState;
 }
 

@@ -37,20 +37,20 @@ Then:
 Run this only after the publish workflow succeeds:
 
 ```bash
-npm view codex-pet-companion@0.1.1 version dist-tags repository license
-npm pack codex-pet-companion@0.1.1 --dry-run
+npm view codex-pet-companion@0.2.0 version dist-tags repository license
+npm pack codex-pet-companion@0.2.0 --dry-run
 
 workdir="$(mktemp -d)"
 cd "$workdir"
 npm init -y
-npm install codex-pet-companion@0.1.1
+npm install codex-pet-companion@0.2.0
 node -e "import('codex-pet-companion').then(m => console.log(Boolean(m.createCodexPetCompanion)))"
 node -e "import('codex-pet-companion/animator').then(m => console.log(Boolean(m.SpriteAnimator)))"
 ```
 
 Verify these pinned browser URLs return JavaScript and then run the clean static-page browser suite:
 
-- `https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js`
-- `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js`
+- `https://unpkg.com/codex-pet-companion@0.2.0/dist/codex-pet-companion.global.js`
+- `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.2.0/dist/codex-pet-companion.global.js`
 
 Finally, run `npm audit signatures` in the clean installation. For `0.1.0`, confirm the registry signature; for every later release, also confirm npm shows the provenance link back to the tagged GitHub workflow and source commit.

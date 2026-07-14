@@ -13,12 +13,25 @@
   <header><a class="brand" href="/">Codex Pet Web</a><a href="https://github.com/wildcard/codex-pet-companion">GitHub ↗</a></header>
   <main>
     <section class="hero">
-      <div><p class="eyebrow">A tiny JavaScript SDK · Kavana included</p><h1>Any Codex pet.<br>Any website.</h1><p class="lede">One Web Component brings transparent atlas animation, roaming, drag, sleep, tuck, persistence, keyboard controls, touch support, and reduced motion.</p><div class="actions"><button id="wave">Ask Kavana to wave</button><a href="#install">Install in one minute</a></div></div>
+      <div><p class="eyebrow">A tiny JavaScript SDK · Kavana included</p><h1>Any Codex pet.<br>Any website.</h1><p class="lede">One Web Component brings transparent atlas animation, roaming, drag, sleep, tuck, persistence, keyboard controls, touch support, and reduced motion.</p><div class="actions"><button id="wave">Ask Kavana to wave</button><button id="zoomies">Send her on zoomies</button><a href="#install">Install in one minute</a></div></div>
       <div class="stage" aria-label="Interactive Kavana demonstration"><codex-pet-companion id="inline-pet" mode="inline"></codex-pet-companion></div>
     </section>
-    <section id="install" class="install"><p class="eyebrow">CDN</p><h2>Two tags. No framework.</h2><pre><code>&lt;script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"&gt;&lt;/script&gt;
-&lt;codex-pet-companion&gt;&lt;/codex-pet-companion&gt;</code></pre><p>Or run <code>npm install codex-pet-companion</code>. Serve your own <code>pet.json</code> and <code>spritesheet.webp</code> to swap Kavana for any Codex pet.</p></section>
-    <section class="grid"><article><h2>Accessible by default</h2><p>Native buttons, keyboard movement, focus restoration, coarse-pointer controls, and a quiet reduced-motion mode.</p></article><article><h2>Strict-CSP ready</h2><p>Self-host the bundle and pet files. No video fallback, tracker, backend, or private Codex API.</p></article><article><h2>Agent install</h2><p>The hosted <code>codex-pet-web</code> skill validates the pet, preserves the site design, and shows Kavana doing zoomies while commands run.</p></article></section>
+    <section id="install" class="install">
+      <p class="eyebrow">CDN quick-start</p><h2>Two tags. No framework.</h2>
+      <pre><code>&lt;script src="https://unpkg.com/codex-pet-companion@0.2.0/dist/codex-pet-companion.global.js"
+  integrity="sha384-SgmWdXBrWbTzInIB9a/nFYUPqB8DzfB+WDQl5wneLvUHw/L7BWcWSwwp2UZ6/UKV"
+  crossorigin="anonymous"&gt;&lt;/script&gt;
+&lt;codex-pet-companion&gt;&lt;/codex-pet-companion&gt;</code></pre>
+      <p class="install-note"><strong>Quick-start network behavior:</strong> this pinned CDN bundle also loads Kavana’s default <code>pet.json</code> and <code>spritesheet.webp</code> from unpkg. It is not a self-hosted setup.</p>
+      <h3>Strict-CSP / self-hosted</h3>
+      <pre><code>&lt;script src="/vendor/codex-pet-companion.global.js"&gt;&lt;/script&gt;
+&lt;codex-pet-companion
+  manifest-url="/pets/kavana/pet.json"
+  atlas-url="/pets/kavana/spritesheet.webp"&gt;
+&lt;/codex-pet-companion&gt;</code></pre>
+      <p>Self-host the bundle and both pet files, then use <code>manifest-url</code> and <code>atlas-url</code>. Other observed attributes are <code>name</code>, <code>mode</code>, <code>state</code>, and <code>scale</code>. Or run <code>npm install codex-pet-companion</code>.</p>
+    </section>
+    <section class="grid"><article><h2>Accessible by default</h2><p>Native buttons, keyboard movement, focus restoration, coarse-pointer controls, and a quiet reduced-motion mode.</p></article><article><h2>Strict-CSP ready</h2><p>Self-host the JavaScript bundle, <code>pet.json</code>, and atlas, then provide their local URLs explicitly. No tracker, backend, or private Codex API.</p></article><article><h2>Agent install</h2><p>The hosted <code>codex-pet-web</code> skill validates the pet, preserves the site design, and shows Kavana doing zoomies while commands run.</p></article></section>
   </main>
   <footer>Community-made. Not affiliated with OpenAI. Kavana artwork is CC BY-NC 4.0; SDK code is MIT.</footer>
 </body>

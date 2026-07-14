@@ -1,10 +1,11 @@
-# Codex Pet Companion 0.1.1
+# Codex Pet Companion 0.2.0
 
-This patch release fixes Web Component rendering on sites with a strict `style-src 'self'` Content Security Policy.
+This release lets any live pet do page-wide zoomies and makes CDN versus self-hosted security guidance explicit.
 
-- Sprite dimensions, atlas frames, and floating-position variables now update through a constructable shadow stylesheet instead of blocked inline styles.
-- Browser verification now fails on CSP console violations and zero-sized sprites.
-- The Kavana adoption test now proves the live SDK card has visible dimensions and a loaded atlas on desktop and mobile.
+- Call `await pet.zoomies()` to send an inline or floating companion roaming across the viewport.
+- Reduced-motion users receive a wave without page movement.
+- SDK and Kavana field guides include accessible zoomies controls.
+- CDN snippets are pinned with SRI; strict-CSP self-hosting examples show `manifest-url` and `atlas-url` explicitly.
 
 The package continues to include:
 

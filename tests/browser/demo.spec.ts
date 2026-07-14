@@ -39,6 +39,19 @@ test('floating controls tuck and recall with focus restoration', async ({ page }
   await expect(pet.locator('.pet')).toBeFocused();
 });
 
+test('the live SDK control sends an inline pet across the page', async ({ page }) => {
+  test.setTimeout(12_000);
+  await page.goto('/');
+  const pet = page.locator('#inline-pet');
+  const button = page.getByRole('button', { name: 'Send her on zoomies' });
+  await expect(pet.locator('.name')).toHaveText('Kavana');
+  await button.click();
+  await expect(pet).toHaveAttribute('data-page-roaming', '');
+  await expect(button).toBeDisabled();
+  await expect(button).toBeEnabled({ timeout: 8_000 });
+  expect(await pet.getAttribute('data-page-roaming')).toBeNull();
+});
+
 test('a v1 two-file pet loads and rejects v2-only look playback', async ({ page }) => {
   await page.goto('/');
   const result = await page.evaluate(async () => {

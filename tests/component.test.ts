@@ -40,4 +40,18 @@ describe('<codex-pet-companion>', () => {
     pet.recall();
     expect(pet.shadowRoot?.querySelector<HTMLButtonElement>('.pet')).toBe(pet.shadowRoot?.activeElement);
   });
+
+  it('exposes zoomies with a reduced-motion fallback', async () => {
+    const pet = document.createElement('codex-pet-companion') as CodexPetCompanionElement;
+    pet.config = { reducedMotion: true, behaviors: { roam: false } };
+    const ready = new Promise((resolve) => pet.addEventListener('codex-pet-ready', resolve, { once: true }));
+    document.body.append(pet);
+    await ready;
+    const events: string[] = [];
+    pet.addEventListener('codex-pet-zoomies-start', () => events.push('start'));
+    pet.addEventListener('codex-pet-zoomies-end', () => events.push('end'));
+    await pet.zoomies();
+    expect(events).toEqual(['start', 'end']);
+    expect(pet.hasAttribute('data-page-roaming')).toBe(false);
+  });
 });
