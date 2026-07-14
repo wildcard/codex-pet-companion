@@ -2,6 +2,8 @@
 
 Put any valid Codex pet on any website with one Web Component. Kavana, the black-and-tan Shiba Inu from Project Caro, is included as the default.
 
+Try the live field guide at [pets.caro.sh](https://pets.caro.sh) and Kavana's real downstream integration at [kavana.caro.sh](https://kavana.caro.sh/#web-sdk).
+
 This is a community project. It is not affiliated with or endorsed by OpenAI. Codex is an OpenAI product.
 
 ## One-line CDN embed
@@ -69,6 +71,18 @@ import { CodexPetCompanion } from 'codex-pet-companion/react';
 export function AppPet() {
   return <CodexPetCompanion manifestUrl="/pets/my-pet/pet.json" />;
 }
+```
+
+Existing React experiences can adopt only the 4 KB animation primitive and keep their own UI and behavior layer:
+
+```tsx
+import { SpriteAnimator } from 'codex-pet-companion/animator';
+
+const animator = new SpriteAnimator(element, {
+  atlasUrl: '/pets/my-pet/spritesheet.webp',
+  scale: 0.5,
+});
+animator.setState('running-right');
 ```
 
 ## CLI

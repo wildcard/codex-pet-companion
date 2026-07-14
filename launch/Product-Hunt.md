@@ -11,12 +11,12 @@ The hook is delight. The substance is a real compatibility layer: one package, a
 ## Submission fields
 
 - Product name: `Codex Pet Web`
-- Primary URL: `[GO-LIVE URL — prefer the SDK demo/landing page, not a repository page]`
+- Primary URL: `https://pets.caro.sh`
 - Tagline (56 characters): `Put any Codex pet on any website with one tiny SDK`
 - Pricing: `Free`
 - Suggested launch tags: `Developer Tools`, `Open Source`, `Web Development`
-- Repository: `[SDK REPOSITORY URL]`
-- npm package: `[NPM PACKAGE URL]`
+- Repository: `https://github.com/wildcard/codex-pet-companion`
+- npm package: `https://www.npmjs.com/package/codex-pet-companion`
 - X handle: leave blank unless a dedicated product account exists
 - Makers: Kobi Kadosh / `wildcard` plus any confirmed co-makers
 - Suggested shoutouts: GitHub, npm, Cloudflare
@@ -35,7 +35,7 @@ That implementation was delightful, but it was tied to one pet and one site. Cod
 
 - use any compatible `pet.json` + transparent `spritesheet.webp`
 - install from npm, ESM/CDN, or a single script tag
-- use the standards-based `<codex-pet>` custom element on plain HTML or modern frameworks
+- use the standards-based `<codex-pet-companion>` custom element on plain HTML or modern frameworks
 - get Kavana as the built-in default, including her zoomies
 - preserve keyboard, touch, focus, reduced-motion, persistence, and cleanup behavior
 - use the hosted agent skill when you want Codex or another coding agent to perform the integration
@@ -49,7 +49,7 @@ Thank you for meeting Kavana. ❤️
 Product Hunt currently requires at least two gallery images and recommends 1270×760. Prepare these only from verified product states:
 
 1. Hero: Kavana doing zoomies across the Codex Pet Web demo, with the one-line script-tag install visible.
-2. Any pet: side-by-side Kavana and a second independently sourced compatible pet using the same SDK configuration.
+2. Any pet: side-by-side Kavana v2 and the bundled v1 compatibility fixture using the same SDK API.
 3. Three surfaces: vanilla HTML, Kavana's field guide, and Caro.sh, each labeled with the same package version.
 4. Accessibility: keyboard focus, touch controls, and reduced-motion still pose, presented as product capabilities rather than a compliance wall.
 5. Agent install: the lean skill prompt followed by a real successful integration summary.
@@ -58,19 +58,19 @@ Thumbnail: 240×240 square, under 3 MB. Use Kavana on a clean transparent or bra
 
 ## Distribution gates
 
-- [ ] Public repository URL confirmed.
+- [x] Public repository URL confirmed.
 - [ ] Package name reserved and public npm version is installable from a clean directory.
 - [ ] `npm view <package> version dist-tags repository license` matches the launch copy.
 - [ ] npm tarball contents checked with `npm pack --dry-run`.
 - [ ] CDN/script-tag URL tested in a clean static HTML page without a bundler.
 - [ ] ESM import tested in a modern bundler.
-- [ ] Kavana is the documented default and can do zoomies without additional assets.
+- [x] Kavana is the documented default and can do zoomies without additional assets.
 - [ ] A second compatible Codex pet proves the SDK is not Kavana-specific.
 - [ ] Vanilla demo, Kavana website, and Caro.sh integration are live on the same released version.
 - [ ] Keyboard, touch/coarse-pointer, focus, reduced-motion, cleanup, and CSP tests are green.
 - [ ] README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, changelog, tagged GitHub release, and support path are public.
 - [ ] Package provenance or trusted-publishing evidence is visible.
-- [ ] Primary URL has an immediate try/install path and no signup wall.
+- [x] Primary URL has an immediate try/install path and no signup wall.
 - [ ] Two 1270×760 gallery images and one 240×240 thumbnail are ready.
 - [ ] Maker profile is complete and the Product Hunt account is eligible to launch.
 
@@ -100,4 +100,3 @@ Thumbnail: 240×240 square, under 3 MB. Use Kavana on a clean transparent or bra
 - Product Hunt featuring guidelines: https://help.producthunt.com/en/articles/9883485-product-hunt-featuring-guidelines
 - GitHub community-profile guidance: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/about-community-profiles-for-public-repositories
 - npm trusted publishing and automatic provenance: https://docs.npmjs.com/trusted-publishers/
-

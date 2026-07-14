@@ -10,7 +10,7 @@ Title:
 
 URL:
 
-> `[GO-LIVE SDK DEMO URL]`
+> `https://pets.caro.sh`
 
 Use the live, interactive SDK demo or documentation page where readers can immediately try Kavana and copy a working npm/CDN example. Do not use a waitlist or static announcement page.
 
@@ -25,20 +25,20 @@ The obvious problem was that the website implementation was tied to Kavana and C
 The smallest integration is intentionally plain HTML:
 
 ```html
-<script type="module" src="[VERIFIED CDN URL]"></script>
-<codex-pet></codex-pet>
+<script src="https://unpkg.com/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js"></script>
+<codex-pet-companion></codex-pet-companion>
 ```
 
 Kavana is the built-in default, so that example gives her room to do the zoomies. You can instead point the element at another compatible `pet.json` and spritesheet. The same package also has an npm/ESM entrypoint for applications that bundle JavaScript.
 
 Under the hood, the package parses and validates the pet manifest, maps Codex v1/v2 atlas geometry into animation states, schedules behavior, and owns lifecycle cleanup. The renderer is a custom element so the core is not coupled to React, Astro, or Caro. Touch, keyboard focus, reduced motion, persistence, transparent playback, and strict-CSP use are part of the public contract rather than demo-only details.
 
-I tested the released package in a plain static page, the Kavana field guide, and Caro.sh, plus a second compatible pet to catch Kavana-specific assumptions. There is also a hosted agent skill: the prompt stays lean, while the skill handles framework discovery, asset validation, integration, and browser checks.
+I tested the package in a plain static page, the Kavana field guide, and Caro.sh, plus both v1 and v2 atlas fixtures to catch version-specific assumptions. There is also a hosted agent skill: the prompt stays lean, while the skill handles framework discovery, asset validation, integration, and browser checks.
 
 The code, package, examples, and compatibility fixtures are public here:
 
-- SDK: `[SDK REPOSITORY URL]`
-- npm: `[NPM PACKAGE URL]`
+- SDK: https://github.com/wildcard/codex-pet-companion
+- npm: https://www.npmjs.com/package/codex-pet-companion
 - Kavana: https://github.com/wildcard/kavana-codex-pet
 - Caro integration: https://www.caro.sh/docs/kavana
 
@@ -48,7 +48,7 @@ I would particularly appreciate technical feedback on the custom-element API, ma
 
 - [ ] Title begins with `Show HN:` and remains concise.
 - [ ] Submission URL is a real interactive product, not a landing page or waitlist.
-- [ ] `[VERIFIED CDN URL]`, SDK repository, npm package, and demo URL are replaced with current public links.
+- [ ] The CDN, SDK repository, npm package, and demo links are rechecked immediately before staging.
 - [ ] Two-line HTML example works when pasted into a clean file.
 - [ ] Every claimed tested integration is public and on the released package version.
 - [ ] Kobi can remain available to answer questions after submission.
