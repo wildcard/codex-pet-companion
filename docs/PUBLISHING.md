@@ -1,19 +1,16 @@
 # Publishing Codex Pet Web SDK
 
-The package is released from GitHub Actions so npm can attach a verifiable provenance statement to every public version. Do not publish a release build from a developer laptop.
+After the one-time namespace bootstrap, the package is released from GitHub Actions so npm can attach a verifiable provenance statement to every subsequent public version. Do not publish later release builds from a developer laptop.
 
 ## One-time first-release bootstrap
 
-npm cannot attach a trusted publisher to a package until that package exists. The first release therefore uses one temporary granular npm token from the GitHub-hosted release workflow:
+npm cannot attach a trusted publisher to a package until that package exists. Bootstrap the namespace once from an authenticated workstation, then remove every temporary credential immediately:
 
 1. Sign in to the npm account that will own `codex-pet-companion` and enable two-factor authentication.
-2. Create a short-lived granular access token with permission to publish public packages.
-3. Add it to `wildcard/codex-pet-companion` as the GitHub Actions secret `NPM_TOKEN`. Never place the token in a file, command argument, issue, or log.
-4. Confirm `main` is green and `npm view codex-pet-companion` still returns `E404` before the inaugural release.
-5. Create GitHub release `v0.1.0` from the verified commit. `.github/workflows/publish.yml` runs the full verification matrix and publishes with provenance.
-6. Verify the registry and both CDN entrypoints using the commands below.
-
-The workflow's `NODE_AUTH_TOKEN` is deliberately compatible with both states: it carries the bootstrap token when the secret exists, then remains empty when npm OIDC is active.
+2. Confirm `main` is green and `npm view codex-pet-companion` still returns `E404` before the inaugural release.
+3. From that exact verified checkout, run `npm publish --access public --provenance=false` and complete npm's interactive 2FA challenge. This first namespace-creation release has a registry signature but cannot have GitHub provenance because the trusted publisher does not exist yet.
+4. Verify the registry and both CDN entrypoints using the commands below.
+5. Continue immediately with the trusted-publisher setup below before preparing another version.
 
 ## Switch immediately to trusted publishing
 
@@ -30,10 +27,10 @@ npx npm@latest trust github codex-pet-companion \
 
 Then:
 
-1. Delete the `NPM_TOKEN` repository secret.
+1. Revoke the workstation login token and delete any temporary granular token or repository secret used while troubleshooting the bootstrap.
 2. In npm package settings, require 2FA and disallow token-based publishing.
 3. Keep the GitHub `npm` environment and `id-token: write` permission unchanged.
-4. Publish all later versions by creating a GitHub release from a green, tagged commit.
+4. Publish all later versions by creating a GitHub release from a green, tagged commit. The workflow has no `NODE_AUTH_TOKEN`; npm exchanges the GitHub OIDC identity directly.
 
 ## Release verification
 
@@ -56,4 +53,4 @@ Verify these pinned browser URLs return JavaScript and then run the clean static
 - `https://unpkg.com/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js`
 - `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js`
 
-Finally, run `npm audit signatures` in the clean installation and confirm npm shows the provenance link back to the tagged GitHub workflow and source commit.
+Finally, run `npm audit signatures` in the clean installation. For `0.1.0`, confirm the registry signature; for every later release, also confirm npm shows the provenance link back to the tagged GitHub workflow and source commit.

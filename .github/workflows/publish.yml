@@ -22,7 +22,3 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm verify
       - run: npm publish --provenance --access public
-        env:
-          # Required only for the first release. Once npm trusted publishing is
-          # configured, OIDC is used and this secret should be deleted.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

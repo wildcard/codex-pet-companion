@@ -112,7 +112,7 @@ The skill wraps installs and deployments with Kavana's terminal zoomies and carr
 
 ## Publishing
 
-Releases publish from GitHub Actions with npm provenance. The first release uses a temporary bootstrap token; subsequent releases use tokenless npm trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure and [docs/DEPLOYING.md](docs/DEPLOYING.md) for the Cloudflare demo deployment.
+The inaugural version bootstraps the npm namespace interactively; subsequent releases publish from GitHub Actions with npm provenance and tokenless trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure and [docs/DEPLOYING.md](docs/DEPLOYING.md) for the Cloudflare demo deployment.
 
 ## Accessibility and CSP
 

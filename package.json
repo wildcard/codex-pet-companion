@@ -19,7 +19,11 @@
     "spritesheet",
     "kavana"
   ],
-  "sideEffects": ["./dist/index.js", "./dist/react.js", "./dist/codex-pet-companion.global.js"],
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/react.js",
+    "./dist/codex-pet-companion.global.js"
+  ],
   "files": [
     "dist",
     "pets",
@@ -50,8 +54,8 @@
     "./pets/*": "./pets/*"
   },
   "bin": {
-    "codex-pet-web": "./dist/cli.js",
-    "codex-pet-companion": "./dist/cli.js"
+    "codex-pet-web": "dist/cli.js",
+    "codex-pet-companion": "dist/cli.js"
   },
   "scripts": {
     "build": "tsup",
