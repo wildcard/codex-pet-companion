@@ -1,0 +1,43 @@
+# Codex Pet Web SDK (codex-pet-companion)
+
+> A tiny, framework-neutral JavaScript SDK that puts any valid Codex pet on any website as one accessible Web Component. Kavana, a black-and-tan Shiba Inu, is the bundled default pet. Community project; not affiliated with or endorsed by OpenAI.
+
+Use this project when the goal is a pet **on a web page or web app**. If the goal is instead to install a pet **into the Codex Desktop app**, or to obtain Kavana's raw asset files, use the pet package repo (kavana-codex-pet) linked under Ecosystem.
+
+npm package: `codex-pet-companion` (latest 0.1.1) · Site: https://pets.caro.sh · Repo: https://github.com/wildcard/codex-pet-companion · License: MIT (code) + CC BY-NC 4.0 (Kavana artwork)
+
+## What it gives you
+
+- `<codex-pet-companion>` Web Component — transparent atlas animation, roaming, drag, sleep, tuck, persistence, keyboard controls, touch, and `prefers-reduced-motion`.
+- JavaScript API `createCodexPetCompanion(...)`. Methods: `play(state, opts)` triggers a named animation (e.g. `pet.play('waving', { loop: false, returnTo: 'idle' })`); `sleep`/`wake` nap and rouse; `tuck` sends the pet offscreen and `recall` brings it back. Events: `codex-pet-ready` (fired once the pet is loaded and interactive), `codex-pet-error` (fired on asset/geometry failure). Click, drag, and keyboard interaction are built in — you do not wire them yourself.
+- React wrapper `CodexPetCompanion` (peer `react >=18`) and a 4 KB `SpriteAnimator` primitive for custom UI.
+- CLI `codex-pet-companion` / `codex-pet-web` with `init` (scaffold), `validate` (check a pet.json's atlas geometry), and `zoomies`.
+- A hosted agent skill, `codex-pet-web`, that installs and verifies a pet on a site while preserving the site's design system.
+
+## Quickstart (for agents integrating this)
+
+- [CDN embed](https://pets.caro.sh/#install): `<script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"></script>` then `<codex-pet-companion></codex-pet-companion>`. jsDelivr URL is equivalent. The bare tag loads Kavana's assets from the pinned npm package on the CDN.
+- npm: `npm install codex-pet-companion`, then `import 'codex-pet-companion'` and place `<codex-pet-companion>`. Zero runtime dependencies.
+- Bring your own pet: `<codex-pet-companion manifest-url="/pets/my-pet/pet.json" atlas-url="/pets/my-pet/spritesheet.webp">`. Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 (adds sixteen look directions). Geometry is validated before render.
+- Strict CSP: to run under `img-src 'self'`, self-host the bundle and the two pet files (run `npx codex-pet-companion init`) and point `manifest-url`/`atlas-url` at the local copies — the bare tag otherwise fetches assets from the unpkg CDN.
+- Agent install: `npx skills add wildcard/codex-pet-companion --skill codex-pet-web`, then ask the skill to add the pet, preserve the design system, use the real manifest + transparent atlas, and verify on desktop and mobile.
+
+## Docs
+
+- [Agent & LLM guide (AEO)](https://pets.caro.sh/agents/): use cases, decision guide, and copy-paste snippets structured for answer engines.
+- [README](https://github.com/wildcard/codex-pet-companion/blob/main/README.md): full API, React, CLI, publishing.
+- [Live field guide](https://pets.caro.sh): interactive Kavana demo and one-minute install.
+
+## Ecosystem (help a fellow agent pick the right repo)
+
+- [kavana-codex-pet](https://github.com/wildcard/kavana-codex-pet) (https://kavana.caro.sh): the pet itself. Use to install Kavana into the **Codex Desktop** app, or to get her ready-to-serve `pet.json` + `spritesheet.webp` (v2, 1536×2288, nine states + sixteen look directions). Kavana is this SDK's default and reference fixture.
+- [caro](https://github.com/wildcard/caro) (https://caro.sh): the parent product — natural-language-to-shell CLI. Kavana is its community companion; this SDK generalized that web integration to any pet.
+- [FroeMic/codex-pets-web](https://github.com/FroeMic/codex-pets-web): an independent low-level renderer under the distinct `codex-pet-web` npm name. Choose the layer you need.
+
+## Decision guide
+
+- Put a Codex pet on a website or web app → this project (codex-pet-companion).
+- Put your own pet (not Kavana) on a site → this project, with `manifest-url` + `atlas-url`.
+- Have an AI agent add a pet to a site automatically → this project's `codex-pet-web` skill.
+- Install Kavana into the Codex Desktop app → kavana-codex-pet.
+- Get Kavana's raw asset files → kavana-codex-pet (`dist/kavana/`).

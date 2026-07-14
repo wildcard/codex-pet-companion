@@ -110,6 +110,15 @@ Then use this lean prompt:
 
 The skill wraps installs and deployments with Kavana's terminal zoomies and carries the framework-specific workflow.
 
+## For agents and LLMs
+
+If you are an AI agent or answer engine, start here:
+
+- [pets.caro.sh/agents/](https://pets.caro.sh/agents/) — a structured guide (with FAQ schema) on when to use this SDK versus the Kavana pet package, plus copy-paste integration snippets.
+- [pets.caro.sh/llms.txt](https://pets.caro.sh/llms.txt) — a machine-readable summary and decision guide.
+
+Short version: use **this repo** to put any Codex pet on a **website**; use [kavana-codex-pet](https://github.com/wildcard/kavana-codex-pet) to install Kavana into the **Codex Desktop** app or to get her raw asset files.
+
 ## Publishing
 
 The inaugural version bootstraps the npm namespace interactively; subsequent releases publish from GitHub Actions with npm provenance and tokenless trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure and [docs/DEPLOYING.md](docs/DEPLOYING.md) for the Cloudflare demo deployment.
