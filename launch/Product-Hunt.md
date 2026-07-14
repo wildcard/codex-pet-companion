@@ -69,7 +69,7 @@ Thumbnail: 240×240 square, under 3 MB. Use Kavana on a clean transparent or bra
 - [x] Vanilla demo, Kavana website, and Caro.sh integration are live on the same released version.
 - [x] Keyboard, touch/coarse-pointer, focus, reduced-motion, cleanup, and CSP tests are green.
 - [x] README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, changelog, tagged GitHub release, and support path are public.
-- [x] Registry signature is verified for `0.1.0`, and trusted publishing is configured for future releases.
+- [x] Registry signature is verified for `0.1.0`; `0.1.1` is published through trusted OIDC with npm provenance.
 - [x] Primary URL has an immediate try/install path and no signup wall.
 - [ ] Two 1270×760 gallery images and one 240×240 thumbnail are ready.
 - [ ] Maker profile is complete and the Product Hunt account is eligible to launch.
