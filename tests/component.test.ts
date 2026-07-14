@@ -12,6 +12,7 @@ class MockImage {
 
 beforeEach(() => {
   vi.stubGlobal('Image', MockImage);
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => window.setTimeout(() => callback(performance.now()), 0));
   vi.stubGlobal('matchMedia', () => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }));
   vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ id: 'kavana', displayName: 'Kavana', spritesheetPath: 'spritesheet.webp', spriteVersionNumber: 2 }))));
   defineCodexPetCompanion();
@@ -53,5 +54,28 @@ describe('<codex-pet-companion>', () => {
     await pet.zoomies();
     expect(events).toEqual(['start', 'end']);
     expect(pet.hasAttribute('data-page-roaming')).toBe(false);
+  });
+
+  it('starts persistent roaming once without reloading an already loaded pet', async () => {
+    const pet = document.createElement('codex-pet-companion') as CodexPetCompanionElement;
+    pet.setAttribute('mode', 'inline');
+    const ready = new Promise((resolve) => pet.addEventListener('codex-pet-ready', resolve, { once: true }));
+    document.body.append(pet);
+    await ready;
+    pet.config = {
+      persistenceKey: false,
+      behaviors: { roam: false, drag: false, tuck: false, sleep: false },
+      dialogue: [{ id: 'hello', label: 'Hello', title: 'Hello', body: 'Already loaded.' }],
+    };
+    await Promise.resolve();
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    const events: string[] = [];
+    pet.addEventListener('codex-pet-roam-start', () => events.push('start'));
+    const results = await Promise.all([pet.startRoaming(), pet.startRoaming()]);
+    expect(results).toEqual([true, true]);
+    expect(events).toEqual(['start']);
+    expect(pet.hasAttribute('data-page-roaming')).toBe(true);
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
