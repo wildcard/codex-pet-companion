@@ -8,7 +8,7 @@ try {
   const output = execFileSync('npm', ['pack', '--json', '--ignore-scripts', '--pack-destination', directory], { encoding: 'utf8' });
   const packed = JSON.parse(output)[0];
   const files = new Set(packed.files.map((file) => file.path));
-  for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/codex-pet-companion.global.js', 'dist/cli.js', 'pets/kavana/pet.json', 'pets/kavana/spritesheet.webp', 'skills/codex-pet-web/SKILL.md']) {
+  for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/animator.js', 'dist/animator.d.ts', 'dist/codex-pet-companion.global.js', 'dist/cli.js', 'pets/kavana/pet.json', 'pets/kavana/spritesheet.webp', 'skills/codex-pet-web/SKILL.md']) {
     if (!files.has(required)) throw new Error(`Packed npm tarball is missing ${required}`);
   }
   const cli = await readFile('dist/cli.js', 'utf8');

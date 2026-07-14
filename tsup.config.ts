@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig([
   {
-    entry: { index: 'src/index.ts', react: 'src/react.tsx' },
+    entry: { index: 'src/index.ts', animator: 'src/animator.ts', react: 'src/react.tsx' },
     format: ['esm'],
     dts: true,
     sourcemap: true,

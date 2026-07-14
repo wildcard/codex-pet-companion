@@ -38,6 +38,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./animator": {
+      "types": "./dist/animator.d.ts",
+      "import": "./dist/animator.js"
+    },
     "./react": {
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js"
