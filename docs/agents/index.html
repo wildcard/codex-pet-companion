@@ -23,7 +23,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "softwareVersion": "0.1.1",
+        "softwareVersion": "0.3.1",
         "downloadUrl": "https://www.npmjs.com/package/codex-pet-companion",
         "codeRepository": "https://github.com/wildcard/codex-pet-companion",
         "license": "https://spdx.org/licenses/MIT.html",
@@ -46,12 +46,12 @@
           {
             "@type": "Question",
             "name": "How do I add the pet with two tags?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Add a script tag pointing at https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js, followed by the <codex-pet-companion></codex-pet-companion> element. The bundle defines the element and resolves Kavana from the pinned npm package on the CDN." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Add a script tag pointing at https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js, followed by the <codex-pet-companion></codex-pet-companion> element. The bundle defines the element and resolves Kavana from the pinned npm package on the CDN." }
           },
           {
             "@type": "Question",
             "name": "How do I use my own Codex pet instead of Kavana?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Serve your pet's two files and point the element at them: <codex-pet-companion manifest-url=\"/pets/my-pet/pet.json\" atlas-url=\"/pets/my-pet/spritesheet.webp\">. Valid v1 atlas is 1536x1872; valid v2 is 1536x2288. The SDK validates geometry before rendering." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Serve your pet's two files and point the element at them: <codex-pet-companion manifest-url=\"/codex-pets/my-pet/pet.json\" atlas-url=\"/codex-pets/my-pet/spritesheet.webp\">. Valid v1 atlas is 1536x1872; valid v2 is 1536x2288. The SDK validates geometry before rendering." }
           },
           {
             "@type": "Question",
@@ -101,9 +101,11 @@
     <section>
       <h2>Integrate it</h2>
       <h3>CDN — two tags, no framework</h3>
-      <pre><code>&lt;script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"&gt;&lt;/script&gt;
+      <pre><code>&lt;script src="https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js"
+  integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II"
+  crossorigin="anonymous"&gt;&lt;/script&gt;
 &lt;codex-pet-companion&gt;&lt;/codex-pet-companion&gt;</code></pre>
-      <p>The equivalent jsDelivr URL is <code>https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js</code>. Pin the version in production.</p>
+      <p>The equivalent jsDelivr URL is <code>https://cdn.jsdelivr.net/npm/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js</code>. Pin the version in production.</p>
 
       <h3>npm</h3>
       <pre><code>npm install codex-pet-companion</code></pre>
@@ -112,20 +114,20 @@
 
       <h3>Your own pet</h3>
       <pre><code>&lt;codex-pet-companion
-  manifest-url="/pets/my-pet/pet.json"
-  atlas-url="/pets/my-pet/spritesheet.webp"&gt;&lt;/codex-pet-companion&gt;</code></pre>
+  manifest-url="/codex-pets/my-pet/pet.json"
+  atlas-url="/codex-pets/my-pet/spritesheet.webp"&gt;&lt;/codex-pet-companion&gt;</code></pre>
       <p>Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 and adds sixteen look directions. Geometry is validated before render.</p>
 
       <h3>JavaScript API</h3>
       <pre><code>import { createCodexPetCompanion } from 'codex-pet-companion';
-const pet = createCodexPetCompanion({ manifestUrl: '/pets/my-pet/pet.json', mode: 'floating' });
+const pet = createCodexPetCompanion({ manifestUrl: '/codex-pets/my-pet/pet.json', mode: 'floating' });
 document.body.append(pet);
 pet.play('waving', { loop: false, returnTo: 'idle' });</code></pre>
-      <p>Methods: <code>play</code>, <code>sleep</code>, <code>wake</code>, <code>tuck</code>, <code>recall</code>. Events: <code>codex-pet-ready</code>, <code>codex-pet-error</code>.</p>
+      <p>Methods: <code>play</code>, <code>zoomies</code>, <code>startRoaming</code>, <code>sleep</code>, <code>wake</code>, <code>tuck</code>, <code>recall</code>. <code>startRoaming()</code> is idempotent — it promotes an inline pet to a persistent looping route and reuses the active route on repeat calls. Events: <code>codex-pet-ready</code>, <code>codex-pet-error</code>, <code>codex-pet-zoomies-start</code>, <code>codex-pet-zoomies-end</code>, <code>codex-pet-roam-start</code>.</p>
 
       <h3>React</h3>
       <pre><code>import { CodexPetCompanion } from 'codex-pet-companion/react';
-&lt;CodexPetCompanion manifestUrl="/pets/my-pet/pet.json" /&gt;</code></pre>
+&lt;CodexPetCompanion manifestUrl="/codex-pets/my-pet/pet.json" /&gt;</code></pre>
 
       <h3>CLI</h3>
       <pre><code>npx codex-pet-companion init .

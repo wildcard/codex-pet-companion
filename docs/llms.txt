@@ -4,22 +4,22 @@
 
 Use this project when the goal is a pet **on a web page or web app**. If the goal is instead to install a pet **into the Codex Desktop app**, or to obtain Kavana's raw asset files, use the pet package repo (kavana-codex-pet) linked under Ecosystem.
 
-npm package: `codex-pet-companion` (latest 0.1.1) · Site: https://pets.caro.sh · Repo: https://github.com/wildcard/codex-pet-companion · License: MIT (code) + CC BY-NC 4.0 (Kavana artwork)
+npm package: `codex-pet-companion` (latest 0.3.1) · Site: https://pets.caro.sh · Repo: https://github.com/wildcard/codex-pet-companion · License: MIT (code) + CC BY-NC 4.0 (Kavana artwork)
 
 ## What it gives you
 
 - `<codex-pet-companion>` Web Component — transparent atlas animation, roaming, drag, sleep, tuck, persistence, keyboard controls, touch, and `prefers-reduced-motion`.
-- JavaScript API `createCodexPetCompanion(...)`. Methods: `play(state, opts)` triggers a named animation (e.g. `pet.play('waving', { loop: false, returnTo: 'idle' })`); `sleep`/`wake` nap and rouse; `tuck` sends the pet offscreen and `recall` brings it back. Events: `codex-pet-ready` (fired once the pet is loaded and interactive), `codex-pet-error` (fired on asset/geometry failure). Click, drag, and keyboard interaction are built in — you do not wire them yourself.
+- JavaScript API `createCodexPetCompanion(...)`. Methods: `play(state, opts)` triggers a named animation (e.g. `pet.play('waving', { loop: false, returnTo: 'idle' })`); `zoomies()` runs a burst of zoomies; `startRoaming()` promotes an inline pet to a persistent looping route (idempotent — repeated calls reuse the active route); `sleep`/`wake` nap and rouse; `tuck` sends the pet offscreen and `recall` brings it back. Events: `codex-pet-ready`, `codex-pet-error`, `codex-pet-zoomies-start`, `codex-pet-zoomies-end`, `codex-pet-roam-start`. Click, drag, and keyboard interaction are built in — you do not wire them yourself.
 - React wrapper `CodexPetCompanion` (peer `react >=18`) and a 4 KB `SpriteAnimator` primitive for custom UI.
 - CLI `codex-pet-companion` / `codex-pet-web` with `init` (scaffold), `validate` (check a pet.json's atlas geometry), and `zoomies`.
 - A hosted agent skill, `codex-pet-web`, that installs and verifies a pet on a site while preserving the site's design system.
 
 ## Quickstart (for agents integrating this)
 
-- [CDN embed](https://pets.caro.sh/#install): `<script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"></script>` then `<codex-pet-companion></codex-pet-companion>`. jsDelivr URL is equivalent. The bare tag loads Kavana's assets from the pinned npm package on the CDN.
+- [CDN embed](https://pets.caro.sh/#install): a pinned `<script>` at `https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js` (with Subresource Integrity `integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II" crossorigin="anonymous"`) followed by `<codex-pet-companion></codex-pet-companion>`. The jsDelivr URL is equivalent. The bare tag loads Kavana's assets from the pinned npm package on the CDN.
 - npm: `npm install codex-pet-companion`, then `import 'codex-pet-companion'` and place `<codex-pet-companion>`. Zero runtime dependencies.
-- Bring your own pet: `<codex-pet-companion manifest-url="/pets/my-pet/pet.json" atlas-url="/pets/my-pet/spritesheet.webp">`. Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 (adds sixteen look directions). Geometry is validated before render.
-- Strict CSP: to run under `img-src 'self'`, self-host the bundle and the two pet files (run `npx codex-pet-companion init`) and point `manifest-url`/`atlas-url` at the local copies — the bare tag otherwise fetches assets from the unpkg CDN.
+- Bring your own pet: `<codex-pet-companion manifest-url="/codex-pets/my-pet/pet.json" atlas-url="/codex-pets/my-pet/spritesheet.webp">`. Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 (adds sixteen look directions). Geometry is validated before render.
+- Strict CSP: to run under `script-src 'self'` / `connect-src 'self'` / `img-src 'self'`, self-host the bundle and the two pet files (run `npx codex-pet-companion init .`) and point `manifest-url`/`atlas-url` at the local `/codex-pets/kavana/` copies — the bare tag otherwise fetches assets from the unpkg CDN.
 - Agent install: `npx skills add wildcard/codex-pet-companion --skill codex-pet-web`, then ask the skill to add the pet, preserve the design system, use the real manifest + transparent atlas, and verify on desktop and mobile.
 
 ## Docs

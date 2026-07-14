@@ -1,0 +1,59 @@
+name: Deploy site
+
+# Deploys the field guide (docs/ -> site/) to Cloudflare at pets.caro.sh.
+# Requires two repo secrets to actually deploy:
+#   CLOUDFLARE_API_TOKEN  — a token with the "Edit Cloudflare Workers" template (Workers Scripts:Edit + Workers Routes:Edit) on the target account
+#   CLOUDFLARE_ACCOUNT_ID — the Cloudflare account id that owns the pets.caro.sh zone
+# Until CLOUDFLARE_API_TOKEN is set, the job runs green and skips the deploy with a notice.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HAS_CF: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+    steps:
+      - name: Notice when Cloudflare token is missing
+        if: env.HAS_CF != 'true'
+        run: echo "::notice::CLOUDFLARE_API_TOKEN not set — skipping deploy. Add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repo secrets to enable auto-deploy to pets.caro.sh."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_CF == 'true'
+
+      - uses: pnpm/action-setup@v4
+        if: env.HAS_CF == 'true'
+
+      - uses: actions/setup-node@v4
+        if: env.HAS_CF == 'true'
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        if: env.HAS_CF == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Build SDK bundle and static site
+        if: env.HAS_CF == 'true'
+        run: |
+          pnpm build
+          pnpm build:docs
+
+      - name: Deploy to Cloudflare
+        if: env.HAS_CF == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
