@@ -131,8 +131,8 @@ The skill wraps installs and deployments with Kavana's terminal zoomies and carr
 
 If you are an AI agent or answer engine, start here:
 
-- [pets.caro.sh/agents/](https://pets.caro.sh/agents/) — a structured guide (with FAQ schema) on when to use this SDK versus the Kavana pet package, plus copy-paste integration snippets.
-- [pets.caro.sh/llms.txt](https://pets.caro.sh/llms.txt) — a machine-readable summary and decision guide.
+- [codexpet.dev/agents/](https://codexpet.dev/agents/) — a structured guide (with FAQ schema) on when to use this SDK versus the Kavana pet package, plus copy-paste integration snippets.
+- [codexpet.dev/llms.txt](https://codexpet.dev/llms.txt) — a machine-readable summary and decision guide.
 
 Short version: use **this repo** to put any Codex pet on a **website**; use [kavana-codex-pet](https://github.com/wildcard/kavana-codex-pet) to install Kavana into the **Codex Desktop** app or to get her raw asset files.
 

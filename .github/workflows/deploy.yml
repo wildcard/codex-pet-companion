@@ -1,9 +1,9 @@
 name: Deploy site
 
-# Deploys the field guide (docs/ -> site/) to Cloudflare at pets.caro.sh.
+# Deploys the field guide (docs/ -> site/) to Cloudflare at codexpet.dev.
 # Requires two repo secrets to actually deploy:
 #   CLOUDFLARE_API_TOKEN  — a token with the "Edit Cloudflare Workers" template (Workers Scripts:Edit + Workers Routes:Edit) on the target account
-#   CLOUDFLARE_ACCOUNT_ID — the Cloudflare account id that owns the pets.caro.sh zone
+#   CLOUDFLARE_ACCOUNT_ID — the Cloudflare account id that owns the codexpet.dev zone
 # Until CLOUDFLARE_API_TOKEN is set, the job runs green and skips the deploy with a notice.
 
 on:
@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Notice when Cloudflare token is missing
         if: env.HAS_CF != 'true'
-        run: echo "::notice::CLOUDFLARE_API_TOKEN not set — skipping deploy. Add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repo secrets to enable auto-deploy to pets.caro.sh."
+        run: echo "::notice::CLOUDFLARE_API_TOKEN not set — skipping deploy. Add the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repo secrets to enable auto-deploy to codexpet.dev."
 
       - uses: actions/checkout@v4
         if: env.HAS_CF == 'true'

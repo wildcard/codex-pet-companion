@@ -4,7 +4,7 @@
 
 Use this project when the goal is a pet **on a web page or web app**. If the goal is instead to install a pet **into the Codex Desktop app**, or to obtain Kavana's raw asset files, use the pet package repo (kavana-codex-pet) linked under Ecosystem.
 
-npm package: `codex-pet-companion` (latest 0.3.1) · Site: https://pets.caro.sh · Repo: https://github.com/wildcard/codex-pet-companion · License: MIT (code) + CC BY-NC 4.0 (Kavana artwork)
+npm package: `codex-pet-companion` (latest 0.3.1) · Site: https://codexpet.dev · Repo: https://github.com/wildcard/codex-pet-companion · License: MIT (code) + CC BY-NC 4.0 (Kavana artwork)
 
 ## What it gives you
 
@@ -16,7 +16,7 @@ npm package: `codex-pet-companion` (latest 0.3.1) · Site: https://pets.caro.sh 
 
 ## Quickstart (for agents integrating this)
 
-- [CDN embed](https://pets.caro.sh/#install): a pinned `<script>` at `https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js` (with Subresource Integrity `integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II" crossorigin="anonymous"`) followed by `<codex-pet-companion></codex-pet-companion>`. The jsDelivr URL is equivalent. The bare tag loads Kavana's assets from the pinned npm package on the CDN.
+- [CDN embed](https://codexpet.dev/#install): a pinned `<script>` at `https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js` (with Subresource Integrity `integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II" crossorigin="anonymous"`) followed by `<codex-pet-companion></codex-pet-companion>`. The jsDelivr URL is equivalent. The bare tag loads Kavana's assets from the pinned npm package on the CDN.
 - npm: `npm install codex-pet-companion`, then `import 'codex-pet-companion'` and place `<codex-pet-companion>`. Zero runtime dependencies.
 - Bring your own pet: `<codex-pet-companion manifest-url="/codex-pets/my-pet/pet.json" atlas-url="/codex-pets/my-pet/spritesheet.webp">`. Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 (adds sixteen look directions). Geometry is validated before render.
 - Strict CSP: to run under `script-src 'self'` / `connect-src 'self'` / `img-src 'self'`, self-host the bundle and the two pet files (run `npx codex-pet-companion init .`) and point `manifest-url`/`atlas-url` at the local `/codex-pets/kavana/` copies — the bare tag otherwise fetches assets from the unpkg CDN.
@@ -24,13 +24,13 @@ npm package: `codex-pet-companion` (latest 0.3.1) · Site: https://pets.caro.sh 
 
 ## Docs
 
-- [Agent & LLM guide (AEO)](https://pets.caro.sh/agents/): use cases, decision guide, and copy-paste snippets structured for answer engines.
+- [Agent & LLM guide (AEO)](https://codexpet.dev/agents/): use cases, decision guide, and copy-paste snippets structured for answer engines.
 - [README](https://github.com/wildcard/codex-pet-companion/blob/main/README.md): full API, React, CLI, publishing.
-- [Live field guide](https://pets.caro.sh): interactive Kavana demo and one-minute install.
+- [Live field guide](https://codexpet.dev): interactive Kavana demo and one-minute install.
 
 ## Ecosystem (help a fellow agent pick the right repo)
 
-- [kavana-codex-pet](https://github.com/wildcard/kavana-codex-pet) (https://kavana.caro.sh): the pet itself. Use to install Kavana into the **Codex Desktop** app, or to get her ready-to-serve `pet.json` + `spritesheet.webp` (v2, 1536×2288, nine states + sixteen look directions). Kavana is this SDK's default and reference fixture.
+- [kavana-codex-pet](https://github.com/wildcard/kavana-codex-pet) (https://kavana.pet): the pet itself. Use to install Kavana into the **Codex Desktop** app, or to get her ready-to-serve `pet.json` + `spritesheet.webp` (v2, 1536×2288, nine states + sixteen look directions). Kavana is this SDK's default and reference fixture.
 - [caro](https://github.com/wildcard/caro) (https://caro.sh): the parent product — natural-language-to-shell CLI. Kavana is its community companion; this SDK generalized that web integration to any pet.
 - [FroeMic/codex-pets-web](https://github.com/FroeMic/codex-pets-web): an independent low-level renderer under the distinct `codex-pet-web` npm name. Choose the layer you need.
 

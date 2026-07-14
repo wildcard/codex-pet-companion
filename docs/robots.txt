@@ -1,4 +1,4 @@
-# Codex Pet Web SDK — https://pets.caro.sh
+# Codex Pet Web SDK — https://codexpet.dev
 # AI agents and answer engines are welcome. Structured guide: /agents/ · Machine summary: /llms.txt
 User-agent: *
 Allow: /
@@ -20,5 +20,7 @@ User-agent: Google-Extended
 Allow: /
 
 # Agent-facing resources
-# LLM summary: https://pets.caro.sh/llms.txt
-# Agent guide:  https://pets.caro.sh/agents/
+# LLM summary: https://codexpet.dev/llms.txt
+# Agent guide:  https://codexpet.dev/agents/
+
+Sitemap: https://codexpet.dev/sitemap.xml
