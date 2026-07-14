@@ -6,6 +6,24 @@
   <meta name="description" content="Put any Codex pet on any website. Kavana included.">
   <meta name="theme-color" content="#b9e4ce">
   <meta name="apple-mobile-web-app-title" content="Codex Pet Web">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://codexpet.dev/">
+  <link rel="sitemap" type="application/xml" href="https://codexpet.dev/sitemap.xml">
+  <link rel="alternate" type="text/plain" href="https://codexpet.dev/llms.txt" title="Codex Pet Web guide for AI agents">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Codex Pet Web">
+  <meta property="og:title" content="Codex Pet Web · Put any Codex pet on any website">
+  <meta property="og:description" content="A tiny framework-neutral Web Component with animation, roaming, drag, sleep, touch, React support, an agent skill, and Kavana included.">
+  <meta property="og:url" content="https://codexpet.dev/">
+  <meta property="og:image" content="https://kavana.pet/assets/kavana-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kavana demonstrating the Codex Pet Web SDK">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Codex Pet Web · Any pet, any website">
+  <meta name="twitter:description" content="One accessible Web Component, a React adapter, CLI, agent skill, and Kavana included.">
+  <meta name="twitter:image" content="https://kavana.pet/assets/kavana-og.png">
+  <meta name="twitter:image:alt" content="Kavana demonstrating the Codex Pet Web SDK">
   <title>Codex Pet Web SDK</title>
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
   <link rel="shortcut icon" href="favicon.ico">
@@ -14,6 +32,41 @@
   <link rel="stylesheet" href="/styles.css">
   <script src="/codex-pet-companion.global.js" defer></script>
   <script src="/demo.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://codexpet.dev/#software",
+        "name": "Codex Pet Web",
+        "alternateName": "codex-pet-companion",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any web platform with JavaScript",
+        "description": "A framework-neutral JavaScript SDK for putting any compatible Codex pet on a website. Includes a Web Component, JavaScript API, React adapter, CLI, agent skill, and Kavana as the default pet.",
+        "url": "https://codexpet.dev/",
+        "codeRepository": "https://github.com/wildcard/codex-pet-companion",
+        "downloadUrl": "https://www.npmjs.com/package/codex-pet-companion",
+        "softwareVersion": "0.3.1",
+        "programmingLanguage": ["JavaScript", "TypeScript"],
+        "license": "https://spdx.org/licenses/MIT.html",
+        "isAccessibleForFree": true,
+        "featureList": ["Web Component", "React adapter", "Sprite animator", "Roaming", "Drag and touch controls", "Reduced motion", "CLI", "AI agent skill", "Kavana default pet"]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://codexpet.dev/#embed-howto",
+        "name": "How to add a Codex pet to a website",
+        "totalTime": "PT1M",
+        "step": [
+          {"@type": "HowToStep", "position": 1, "name": "Load the SDK", "text": "Install codex-pet-companion from npm or load its pinned browser bundle from a CDN."},
+          {"@type": "HowToStep", "position": 2, "name": "Add the pet", "text": "Place the codex-pet-companion custom element in the page. Kavana is the zero-configuration default."},
+          {"@type": "HowToStep", "position": 3, "name": "Bring your own pet", "text": "Set manifest-url and atlas-url to any compatible pet.json and transparent spritesheet.webp."}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header><a class="brand" href="/">Codex Pet Web</a><a href="https://github.com/wildcard/codex-pet-companion">GitHub ↗</a></header>
