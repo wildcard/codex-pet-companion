@@ -88,10 +88,27 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   #sleeping = false;
   #tucked: 'left' | 'right' | undefined;
   #suppressClick = false;
+  #hostStyle?: CSSStyleDeclaration;
+  #spriteStyle?: CSSStyleDeclaration;
 
   constructor() {
     super();
-    if (typeof document !== 'undefined') this.attachShadow({ mode: 'open' }).append(getTemplate().content.cloneNode(true));
+    if (typeof document !== 'undefined') {
+      const root = this.attachShadow({ mode: 'open' });
+      const content = getTemplate().content.cloneNode(true) as DocumentFragment;
+      const style = content.querySelector('style');
+      if ('adoptedStyleSheets' in root && typeof CSSStyleSheet !== 'undefined') {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(`${style?.textContent ?? ''}\n:host {}\n.sprite {}`);
+        style?.remove();
+        root.append(content);
+        root.adoptedStyleSheets = [sheet];
+        this.#hostStyle = (sheet.cssRules[sheet.cssRules.length - 2] as CSSStyleRule).style;
+        this.#spriteStyle = (sheet.cssRules[sheet.cssRules.length - 1] as CSSStyleRule).style;
+      } else {
+        root.append(content);
+      }
+    }
   }
 
   get config(): CodexPetCompanionConfig { return this.#config; }
@@ -101,6 +118,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   }
 
   connectedCallback(): void {
+    this.#ensureStyleTargets();
     this.setAttribute('mode', this.getAttribute('mode') ?? this.#config.mode ?? 'floating');
     this.#bind();
     void this.#initialize();
@@ -108,6 +126,16 @@ export class CodexPetCompanionElement extends HTMLElementBase {
 
   disconnectedCallback(): void { this.#cleanup(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.#initialize(); }
+
+  #ensureStyleTargets(): void {
+    if (this.#hostStyle && this.#spriteStyle) return;
+    const sheet = this.shadowRoot?.querySelector('style')?.sheet;
+    if (!sheet) return;
+    const hostRule = sheet.insertRule(':host {}', sheet.cssRules.length);
+    const spriteRule = sheet.insertRule('.sprite {}', sheet.cssRules.length);
+    this.#hostStyle = (sheet.cssRules[hostRule] as CSSStyleRule).style;
+    this.#spriteStyle = (sheet.cssRules[spriteRule] as CSSStyleRule).style;
+  }
 
   play(state: CompanionState, options: { loop?: boolean; cycles?: number; returnTo?: CompanionState } = {}): void {
     if (!this.#manifest) return;
@@ -162,11 +190,11 @@ export class CodexPetCompanionElement extends HTMLElementBase {
       const scale = Number(this.getAttribute('scale') ?? this.#config.scale ?? 0.5);
       const state = (this.getAttribute('state') ?? this.#config.state ?? 'idle') as CompanionState;
       const sprite = this.shadowRoot!.querySelector<HTMLElement>('.sprite')!;
-      this.#animator = new SpriteAnimator(sprite, { atlasUrl, scale, state, reducedMotion: this.#reducedMotion });
+      this.#animator = new SpriteAnimator(sprite, { atlasUrl, scale, state, reducedMotion: this.#reducedMotion, styleTarget: this.#spriteStyle });
       this.shadowRoot!.querySelector<HTMLElement>('.name')!.textContent = this.getAttribute('name') ?? this.#config.name ?? manifest.displayName;
       const petButton = this.shadowRoot!.querySelector<HTMLButtonElement>('.pet')!;
       petButton.setAttribute('aria-label', `Talk with ${this.#config.name ?? manifest.displayName}`);
-      this.style.setProperty('--codex-pet-z', String(this.#config.zIndex ?? 90));
+      (this.#hostStyle ?? this.style).setProperty('--codex-pet-z', String(this.#config.zIndex ?? 90));
       this.#renderDialogue();
       this.#restore();
       this.#updateControls();
@@ -324,9 +352,10 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   }
 
   #place(x: number, y: number, travel: number): void {
-    this.style.setProperty('--pet-x', `${Math.round(x)}px`);
-    this.style.setProperty('--pet-y', `${Math.round(y)}px`);
-    this.style.setProperty('--pet-travel', `${this.#reducedMotion ? 0 : travel}ms`);
+    const style = this.#hostStyle ?? this.style;
+    style.setProperty('--pet-x', `${Math.round(x)}px`);
+    style.setProperty('--pet-y', `${Math.round(y)}px`);
+    style.setProperty('--pet-travel', `${this.#reducedMotion ? 0 : travel}ms`);
   }
 
   #restartSleepClock(): void {

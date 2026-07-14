@@ -25,7 +25,7 @@ The obvious problem was that the website implementation was tied to Kavana and C
 The smallest integration is intentionally plain HTML:
 
 ```html
-<script src="https://unpkg.com/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js"></script>
+<script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"></script>
 <codex-pet-companion></codex-pet-companion>
 ```
 

@@ -9,13 +9,13 @@ This is a community project. It is not affiliated with or endorsed by OpenAI. Co
 ## One-line CDN embed
 
 ```html
-<script src="https://unpkg.com/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js"></script>
+<script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"></script>
 <codex-pet-companion></codex-pet-companion>
 ```
 
 The script defines `<codex-pet-companion>` and resolves Kavana from the same pinned npm package. Pin the version in production.
 
-The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.0/dist/codex-pet-companion.global.js`.
+The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js`.
 
 ## npm
 

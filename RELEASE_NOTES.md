@@ -1,6 +1,12 @@
-# Codex Pet Companion 0.1.0
+# Codex Pet Companion 0.1.1
 
-The first public Codex Pet Web SDK release includes:
+This patch release fixes Web Component rendering on sites with a strict `style-src 'self'` Content Security Policy.
+
+- Sprite dimensions, atlas frames, and floating-position variables now update through a constructable shadow stylesheet instead of blocked inline styles.
+- Browser verification now fails on CSP console violations and zero-sized sprites.
+- The Kavana adoption test now proves the live SDK card has visible dimensions and a loaded atlas on desktop and mobile.
+
+The package continues to include:
 
 - `<codex-pet-companion>` for static HTML and modern frameworks;
 - JavaScript control API, React adapter, and lightweight `codex-pet-companion/animator` entrypoint for existing experiences;

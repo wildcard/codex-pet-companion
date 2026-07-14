@@ -3,6 +3,8 @@ import type { CompanionController, CompanionState, PlayOptions, SpriteFrame } fr
 
 export interface AnimatorOptions {
   atlasUrl: string;
+  /** CSSOM declaration used by the Web Component to remain compatible with strict style-src CSP. */
+  styleTarget?: CSSStyleDeclaration;
   scale?: number;
   state?: CompanionState;
   reducedMotion?: boolean;
@@ -12,6 +14,8 @@ export interface AnimatorOptions {
 
 export class SpriteAnimator implements CompanionController {
   #element: HTMLElement;
+  #style: CSSStyleDeclaration;
+  #scale = 0.5;
   #sequences: Record<CompanionState, SpriteFrame[]>;
   #state: CompanionState;
   #baseState: CompanionState;
@@ -27,12 +31,13 @@ export class SpriteAnimator implements CompanionController {
 
   constructor(element: HTMLElement, options: AnimatorOptions) {
     this.#element = element;
+    this.#style = options.styleTarget ?? element.style;
     this.#sequences = { ...DEFAULT_SEQUENCES, ...options.sequences };
     this.#state = options.state ?? 'idle';
     this.#baseState = this.#state;
     this.#reducedMotion = options.reducedMotion ?? false;
     this.#onStateChange = options.onStateChange;
-    this.#element.style.backgroundImage = `url("${options.atlasUrl.replaceAll('"', '%22')}")`;
+    this.#style.backgroundImage = `url("${options.atlasUrl.replaceAll('"', '%22')}")`;
     this.setScale(options.scale ?? 0.5);
     this.#paint();
     if (!this.#reducedMotion) this.#schedule();
@@ -42,9 +47,10 @@ export class SpriteAnimator implements CompanionController {
 
   setScale(scale: number): void {
     const safeScale = Number.isFinite(scale) ? Math.min(4, Math.max(0.1, scale)) : 0.5;
-    this.#element.style.width = `${CELL_WIDTH * safeScale}px`;
-    this.#element.style.height = `${CELL_HEIGHT * safeScale}px`;
-    this.#element.style.backgroundSize = `${CELL_WIDTH * 8 * safeScale}px auto`;
+    this.#scale = safeScale;
+    this.#style.width = `${CELL_WIDTH * safeScale}px`;
+    this.#style.height = `${CELL_HEIGHT * safeScale}px`;
+    this.#style.backgroundSize = `${CELL_WIDTH * 8 * safeScale}px auto`;
     this.#element.dataset.scale = String(safeScale);
   }
 
@@ -82,8 +88,7 @@ export class SpriteAnimator implements CompanionController {
   #paint(): void {
     const frames = this.#sequences[this.#state] ?? this.#sequences.idle;
     const frame = frames[this.#frameIndex] ?? frames[0];
-    const scale = Number(this.#element.dataset.scale || 0.5);
-    this.#element.style.backgroundPosition = `${-frame.column * CELL_WIDTH * scale}px ${-frame.row * CELL_HEIGHT * scale}px`;
+    this.#style.backgroundPosition = `${-frame.column * CELL_WIDTH * this.#scale}px ${-frame.row * CELL_HEIGHT * this.#scale}px`;
   }
 
   #schedule(): void {

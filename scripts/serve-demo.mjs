@@ -14,7 +14,7 @@ createServer(async (request, response) => {
     const file = info.isDirectory() ? join(candidate, 'index.html') : candidate;
     response.writeHead(200, {
       'content-type': types[extname(file)] ?? 'application/octet-stream',
-      'content-security-policy': "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'",
+      'content-security-policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'",
       'x-content-type-options': 'nosniff',
     });
     response.end(await readFile(file));
