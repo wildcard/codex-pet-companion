@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agent and LLM guide for the Codex Pet Web SDK (codex-pet-companion): what it is, when to use it versus the Kavana pet package, and copy-paste snippets to put any Codex pet on any website.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://pets.caro.sh/agents/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Codex Pet Web SDK">
+  <meta property="og:title" content="Codex Pet Web SDK — Agent & LLM Guide">
+  <meta property="og:description" content="When to use the Web SDK versus the Kavana pet package, with copy-paste integration snippets for CDN, npm, React, CLI, and the agent skill.">
+  <meta property="og:url" content="https://pets.caro.sh/agents/">
+  <title>Codex Pet Web SDK — Agent &amp; LLM Guide</title>
+  <link rel="stylesheet" href="agents.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "codex-pet-companion (Codex Pet Web SDK)",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "softwareVersion": "0.1.1",
+        "downloadUrl": "https://www.npmjs.com/package/codex-pet-companion",
+        "codeRepository": "https://github.com/wildcard/codex-pet-companion",
+        "license": "https://spdx.org/licenses/MIT.html",
+        "description": "A framework-neutral JavaScript SDK that places any valid Codex pet on any website as one accessible Web Component. Kavana is the bundled default pet.",
+        "url": "https://pets.caro.sh"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is codex-pet-companion?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A tiny framework-neutral JavaScript SDK that puts any valid Codex pet on any website as one accessible Web Component (<codex-pet-companion>). It provides a JS API, a React wrapper, a SpriteAnimator primitive, a CLI, and a hosted agent skill. Kavana, a black-and-tan Shiba Inu, is the bundled default pet." }
+          },
+          {
+            "@type": "Question",
+            "name": "When should I use the SDK versus the Kavana pet package?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Use the SDK (codex-pet-companion) to put a pet on a website or web app. Use the Kavana pet package (kavana-codex-pet) to install Kavana into the Codex Desktop app or to obtain her raw pet.json and spritesheet.webp asset files." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I add the pet with two tags?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Add a script tag pointing at https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js, followed by the <codex-pet-companion></codex-pet-companion> element. The bundle defines the element and resolves Kavana from the pinned npm package on the CDN." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I use my own Codex pet instead of Kavana?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Serve your pet's two files and point the element at them: <codex-pet-companion manifest-url=\"/pets/my-pet/pet.json\" atlas-url=\"/pets/my-pet/spritesheet.webp\">. Valid v1 atlas is 1536x1872; valid v2 is 1536x2288. The SDK validates geometry before rendering." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work under a strict Content Security Policy?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, but the bare tag loads assets from the unpkg CDN. To run under img-src 'self', self-host the bundle and the two pet files (run npx codex-pet-companion init) and point manifest-url and atlas-url at the local copies." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can an AI agent install it automatically?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Run npx skills add wildcard/codex-pet-companion --skill codex-pet-web, then ask the codex-pet-web skill to add the pet, preserve the site design system, use the real manifest and transparent atlas, and verify on desktop and mobile." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Codex Pet Web</a>
+    <nav><a href="/llms.txt">llms.txt</a> · <a href="https://github.com/wildcard/codex-pet-companion">GitHub ↗</a></nav>
+  </header>
+
+  <main>
+    <h1>Codex Pet Web SDK — Agent &amp; LLM guide</h1>
+    <p class="lede">This page is written for AI agents and answer engines. It states what <code>codex-pet-companion</code> is, when to reach for it, and the exact snippets to integrate it. A machine-readable summary is at <a href="/llms.txt">/llms.txt</a>.</p>
+
+    <section>
+      <h2>What is codex-pet-companion?</h2>
+      <p>A tiny, framework-neutral JavaScript SDK that puts <strong>any valid Codex pet on any website</strong> as one accessible Web Component, <code>&lt;codex-pet-companion&gt;</code>. It brings transparent atlas animation, roaming, drag, sleep, tuck, persistence, keyboard controls, touch, and reduced motion. Kavana, a black-and-tan Shiba Inu, is the bundled default pet. Community project; not affiliated with OpenAI.</p>
+    </section>
+
+    <section>
+      <h2>When to use this repo (and when not to)</h2>
+      <table>
+        <thead><tr><th>Your goal</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Put a Codex pet on a website or web app</td><td><strong>codex-pet-companion</strong> (this repo)</td></tr>
+          <tr><td>Put your own pet (not Kavana) on a site</td><td>This repo, with <code>manifest-url</code> + <code>atlas-url</code></td></tr>
+          <tr><td>Have an AI agent add a pet to a site automatically</td><td>This repo's <code>codex-pet-web</code> skill</td></tr>
+          <tr><td>Install Kavana into the Codex <em>Desktop</em> app</td><td><a href="https://github.com/wildcard/kavana-codex-pet">kavana-codex-pet</a></td></tr>
+          <tr><td>Get Kavana's raw <code>pet.json</code> + <code>spritesheet.webp</code></td><td><a href="https://github.com/wildcard/kavana-codex-pet">kavana-codex-pet</a> (<code>dist/kavana/</code>)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Integrate it</h2>
+      <h3>CDN — two tags, no framework</h3>
+      <pre><code>&lt;script src="https://unpkg.com/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js"&gt;&lt;/script&gt;
+&lt;codex-pet-companion&gt;&lt;/codex-pet-companion&gt;</code></pre>
+      <p>The equivalent jsDelivr URL is <code>https://cdn.jsdelivr.net/npm/codex-pet-companion@0.1.1/dist/codex-pet-companion.global.js</code>. Pin the version in production.</p>
+
+      <h3>npm</h3>
+      <pre><code>npm install codex-pet-companion</code></pre>
+      <pre><code>&lt;script type="module"&gt;import 'codex-pet-companion';&lt;/script&gt;
+&lt;codex-pet-companion&gt;&lt;/codex-pet-companion&gt;</code></pre>
+
+      <h3>Your own pet</h3>
+      <pre><code>&lt;codex-pet-companion
+  manifest-url="/pets/my-pet/pet.json"
+  atlas-url="/pets/my-pet/spritesheet.webp"&gt;&lt;/codex-pet-companion&gt;</code></pre>
+      <p>Valid v1 atlas is 1536×1872; valid v2 is 1536×2288 and adds sixteen look directions. Geometry is validated before render.</p>
+
+      <h3>JavaScript API</h3>
+      <pre><code>import { createCodexPetCompanion } from 'codex-pet-companion';
+const pet = createCodexPetCompanion({ manifestUrl: '/pets/my-pet/pet.json', mode: 'floating' });
+document.body.append(pet);
+pet.play('waving', { loop: false, returnTo: 'idle' });</code></pre>
+      <p>Methods: <code>play</code>, <code>sleep</code>, <code>wake</code>, <code>tuck</code>, <code>recall</code>. Events: <code>codex-pet-ready</code>, <code>codex-pet-error</code>.</p>
+
+      <h3>React</h3>
+      <pre><code>import { CodexPetCompanion } from 'codex-pet-companion/react';
+&lt;CodexPetCompanion manifestUrl="/pets/my-pet/pet.json" /&gt;</code></pre>
+
+      <h3>CLI</h3>
+      <pre><code>npx codex-pet-companion init .
+npx codex-pet-companion validate public/codex-pets/kavana/pet.json</code></pre>
+
+      <h3>Agent skill</h3>
+      <pre><code>npx skills add wildcard/codex-pet-companion --skill codex-pet-web</code></pre>
+      <p>Then: “Use the <code>codex-pet-web</code> skill to add this Codex pet to the current website. Preserve the site's design system, use the pet's real manifest and transparent atlas, enable accessible touch/keyboard/reduced-motion behavior, and verify on desktop and mobile.”</p>
+    </section>
+
+    <section>
+      <h2>Strict CSP</h2>
+      <p>The bare tag fetches Kavana's assets from the unpkg CDN. To run under <code>script-src 'self'</code> / <code>img-src 'self'</code>, self-host the bundle and the two pet files (<code>npx codex-pet-companion init</code>) and point <code>manifest-url</code> / <code>atlas-url</code> at the local copies. No tracker, backend, video fallback, or private Codex API is used.</p>
+    </section>
+
+    <section>
+      <h2>Ecosystem</h2>
+      <ul>
+        <li><a href="https://github.com/wildcard/kavana-codex-pet">kavana-codex-pet</a> — the pet itself: Codex Desktop install and the raw v2 asset package. Kavana is this SDK's default and reference fixture. Agent guide: <a href="https://kavana.caro.sh/agents/">kavana.caro.sh/agents/</a>.</li>
+        <li><a href="https://github.com/wildcard/caro">caro</a> — the parent product (natural-language-to-shell CLI). Kavana is its community companion; this SDK generalized that web integration.</li>
+        <li><a href="https://github.com/FroeMic/codex-pets-web">FroeMic/codex-pets-web</a> — an independent low-level renderer under the distinct <code>codex-pet-web</code> npm name.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>Community-made. Not affiliated with OpenAI. Kavana artwork is CC BY-NC 4.0; SDK code is MIT. · <a href="/llms.txt">/llms.txt</a></footer>
+</body>
+</html>

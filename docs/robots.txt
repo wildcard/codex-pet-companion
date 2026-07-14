@@ -1,0 +1,24 @@
+# Codex Pet Web SDK — https://pets.caro.sh
+# AI agents and answer engines are welcome. Structured guide: /agents/ · Machine summary: /llms.txt
+User-agent: *
+Allow: /
+
+# Named AI crawlers (explicitly allowed)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Agent-facing resources
+# LLM summary: https://pets.caro.sh/llms.txt
+# Agent guide:  https://pets.caro.sh/agents/
