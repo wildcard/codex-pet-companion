@@ -108,6 +108,10 @@ Then use this lean prompt:
 
 The skill wraps installs and deployments with Kavana's terminal zoomies and carries the framework-specific workflow.
 
+## Publishing
+
+Releases publish from GitHub Actions with npm provenance. The first release uses a temporary bootstrap token; subsequent releases use tokenless npm trusted publishing. See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the exact release and verification procedure.
+
 ## Accessibility and CSP
 
 - Pointer drag has click-suppression and viewport constraints.
