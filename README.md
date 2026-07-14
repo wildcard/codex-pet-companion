@@ -9,15 +9,15 @@ This is a community project. It is not affiliated with or endorsed by OpenAI. Co
 ## One-line CDN embed
 
 ```html
-<script src="https://unpkg.com/codex-pet-companion@0.2.0/dist/codex-pet-companion.global.js"
-  integrity="sha384-SgmWdXBrWbTzInIB9a/nFYUPqB8DzfB+WDQl5wneLvUHw/L7BWcWSwwp2UZ6/UKV"
+<script src="https://unpkg.com/codex-pet-companion@0.3.0/dist/codex-pet-companion.global.js"
+  integrity="sha384-KXVtGeBD2DiUJSgywbbRB9zA4ZxLkVlDsooJujID7XO9Ji2/u9s/LQJn8qJ3oBdp"
   crossorigin="anonymous"></script>
 <codex-pet-companion></codex-pet-companion>
 ```
 
 The script defines `<codex-pet-companion>` and resolves Kavana from the same pinned npm package. Pin the version in production.
 
-The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.2.0/dist/codex-pet-companion.global.js`.
+The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.3.0/dist/codex-pet-companion.global.js`.
 
 The bare CDN element loads Kavana's default manifest and atlas from the same pinned CDN package. For a strict-CSP or fully self-hosted deployment, host the bundle and pet files yourself and provide both `manifest-url` and `atlas-url` as shown below.
 
@@ -68,9 +68,10 @@ const pet = createCodexPetCompanion({
 document.body.append(pet);
 pet.play('waving', { loop: false, returnTo: 'idle' });
 await pet.zoomies();
+await pet.startRoaming(); // Idempotent: reuses this pet and keeps the natural route looping.
 ```
 
-Public methods: `play`, `zoomies`, `sleep`, `wake`, `tuck`, and `recall`. Events: `codex-pet-ready`, `codex-pet-error`, `codex-pet-zoomies-start`, and `codex-pet-zoomies-end`.
+Public methods: `play`, `zoomies`, `startRoaming`, `sleep`, `wake`, `tuck`, and `recall`. `startRoaming()` waits for loading, promotes an inline pet to the page without creating or fetching another instance, and resolves `true` once its persistent route begins. Repeated calls reuse the active route. Events: `codex-pet-ready`, `codex-pet-error`, `codex-pet-zoomies-start`, `codex-pet-zoomies-end`, and `codex-pet-roam-start`.
 
 ## React
 

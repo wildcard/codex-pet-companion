@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Add idempotent `startRoaming()` for persistent page roaming using the slower, natural Caro route.
+- Coalesce custom-element initialization so parser upgrades and behavior-only config changes do not refetch pet assets.
+- Keep inline pets visible while they transition into roaming and emit `codex-pet-roam-start` after activation.
+
 ## 0.2.0
 
 - Add the public `zoomies()` Web Component action, including an inline-to-page roaming sequence and a reduced-motion wave fallback.

@@ -83,6 +83,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   #roamTimer?: ReturnType<typeof setTimeout>;
   #sleepTimer?: ReturnType<typeof setTimeout>;
   #zoomiesToken = 0;
+  #persistentRoaming = false;
   #drag?: DragSession;
   #position = { x: 22, y: 0 };
   #topic = 0;
@@ -92,6 +93,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
   #suppressClick = false;
   #hostStyle?: CSSStyleDeclaration;
   #spriteStyle?: CSSStyleDeclaration;
+  #initializeQueued = false;
 
   constructor() {
     super();
@@ -115,19 +117,38 @@ export class CodexPetCompanionElement extends HTMLElementBase {
 
   get config(): CodexPetCompanionConfig { return this.#config; }
   set config(value: CodexPetCompanionConfig) {
+    const previous = this.#config;
     this.#config = { ...this.#config, ...value, behaviors: { ...this.#config.behaviors, ...value.behaviors } };
-    if (this.isConnected) void this.#initialize();
+    if (!this.isConnected) return;
+    const reloadKeys: (keyof CodexPetCompanionConfig)[] = ['manifest', 'manifestUrl', 'atlasUrl', 'assetBaseUrl', 'scale', 'state', 'name', 'reducedMotion'];
+    const needsReload = reloadKeys.some((key) => key in value && previous[key] !== this.#config[key]);
+    if (needsReload) this.#queueInitialize();
+    else {
+      this.#renderDialogue();
+      this.#updateControls();
+      if (this.getAttribute('mode') !== 'inline' && this.#behaviors().roam) this.#startRoam();
+      else clearTimeout(this.#roamTimer);
+    }
   }
 
   connectedCallback(): void {
     this.#ensureStyleTargets();
-    this.setAttribute('mode', this.getAttribute('mode') ?? this.#config.mode ?? 'floating');
     this.#bind();
-    void this.#initialize();
+    if (this.hasAttribute('mode')) this.#queueInitialize();
+    else this.setAttribute('mode', this.#config.mode ?? 'floating');
   }
 
   disconnectedCallback(): void { this.#cleanup(); }
-  attributeChangedCallback(): void { if (this.isConnected) void this.#initialize(); }
+  attributeChangedCallback(): void { if (this.isConnected) this.#queueInitialize(); }
+
+  #queueInitialize(): void {
+    if (this.#initializeQueued) return;
+    this.#initializeQueued = true;
+    queueMicrotask(() => {
+      this.#initializeQueued = false;
+      if (this.isConnected) void this.#initialize();
+    });
+  }
 
   #ensureStyleTargets(): void {
     if (this.#hostStyle && this.#spriteStyle) return;
@@ -183,6 +204,39 @@ export class CodexPetCompanionElement extends HTMLElementBase {
     this.#animator?.setState('idle');
     if (!inline) this.#startRoam();
     this.dispatchEvent(new CustomEvent('codex-pet-zoomies-end', { bubbles: true }));
+  }
+
+  async startRoaming(): Promise<boolean> {
+    if (!this.#manifest) {
+      const loaded = await new Promise<boolean>((resolve) => {
+        const ready = () => { cleanup(); resolve(true); };
+        const failed = () => { cleanup(); resolve(false); };
+        const cleanup = () => {
+          this.removeEventListener('codex-pet-ready', ready);
+          this.removeEventListener('codex-pet-error', failed);
+        };
+        this.addEventListener('codex-pet-ready', ready, { once: true });
+        this.addEventListener('codex-pet-error', failed, { once: true });
+      });
+      if (!loaded || !this.#manifest) return false;
+    }
+    if (this.#persistentRoaming) return true;
+
+    this.#persistentRoaming = true;
+    this.#zoomiesToken += 1;
+    clearTimeout(this.#roamTimer);
+    const inline = this.getAttribute('mode') === 'inline';
+    if (inline) {
+      const bounds = this.getBoundingClientRect();
+      this.#position = { x: bounds.left, y: bounds.top };
+      this.#place(bounds.left, bounds.top, 0);
+      this.setAttribute('data-page-roaming', '');
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    }
+    if (!this.isConnected || !this.#persistentRoaming) return false;
+    this.#startRoam();
+    this.dispatchEvent(new CustomEvent('codex-pet-roam-start', { bubbles: true }));
+    return true;
   }
 
   sleep(): void { this.#sleeping = true; this.play('sleeping', { loop: false }); this.#updateControls(); this.#persist(); }
@@ -283,6 +337,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
 
   #cleanup(full = true): void {
     this.#zoomiesToken += 1;
+    this.#persistentRoaming = false;
     this.removeAttribute('data-page-roaming');
     this.#abort?.abort();
     this.#animator?.destroy();
@@ -343,15 +398,25 @@ export class CodexPetCompanionElement extends HTMLElementBase {
       this.#place(this.#position.x || 22, this.#position.y || innerHeight - 150, 0); return;
     }
     const route = [
-      { x: 22, y: innerHeight - 150, state: 'waving' as const, wait: 1800, travel: 900 },
-      { x: Math.max(22, innerWidth - 220), y: innerHeight - 150, state: 'running-right' as const, wait: 5200, travel: 4600 },
-      { x: Math.max(22, innerWidth - 220), y: Math.max(30, innerHeight * .46), state: 'look-around' as const, wait: 3000, travel: 0 },
-      { x: 28, y: Math.max(30, innerHeight * .5), state: 'running-left' as const, wait: 5600, travel: 5000 },
-      { x: Math.max(22, innerWidth / 2 - 48), y: innerHeight - 170, state: 'review' as const, wait: 2800, travel: 2200 },
+      { x: 22, y: innerHeight - 150, state: 'running-right' as const, wait: 3000, travel: 2500 },
+      { x: 22, y: innerHeight - 150, state: 'waving' as const, wait: 1800, travel: 0 },
+      { x: Math.max(22, innerWidth - 220), y: innerHeight - 150, state: 'running-right' as const, wait: 5700, travel: 5100 },
+      { x: Math.max(22, innerWidth - 220), y: innerHeight - 150, state: 'look-around' as const, wait: 3100, travel: 0 },
+      { x: Math.max(22, innerWidth - 170), y: Math.max(30, innerHeight * .42), state: 'jumping' as const, wait: 2600, travel: 2100 },
+      { x: Math.max(22, innerWidth - 170), y: Math.max(30, innerHeight * .42), state: 'review' as const, wait: 2600, travel: 0 },
+      { x: 30, y: Math.max(30, innerHeight * .48), state: 'running-left' as const, wait: 6400, travel: 5800 },
+      { x: 30, y: Math.max(30, innerHeight * .48), state: 'waiting' as const, wait: 2600, travel: 0 },
+      { x: Math.max(22, innerWidth / 2 - 48), y: innerHeight - 170, state: 'jumping' as const, wait: 3000, travel: 2400 },
+      { x: Math.max(22, innerWidth / 2 - 48), y: innerHeight - 170, state: 'running' as const, wait: 2800, travel: 0 },
+      { x: Math.max(22, innerWidth - 220), y: innerHeight - 150, state: 'running-right' as const, wait: 5000, travel: 4400 },
+      { x: Math.max(22, innerWidth - 220), y: innerHeight - 150, state: 'look-around' as const, wait: 3100, travel: 0 },
+      { x: 22, y: innerHeight - 150, state: 'running-left' as const, wait: 6100, travel: 5500 },
+      { x: 22, y: innerHeight - 150, state: 'waving' as const, wait: 1800, travel: 0 },
     ];
     let index = 0;
     const advance = () => {
-      const step = route[index++ % route.length];
+      const step = route[index];
+      index = index >= route.length - 1 ? 2 : index + 1;
       this.#position = { x: step.x, y: step.y };
       this.#place(step.x, step.y, step.travel);
       if (step.state !== 'look-around' || this.#manifest?.spriteVersionNumber === 2) this.#animator?.setState(step.state);

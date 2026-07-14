@@ -21,11 +21,19 @@ test('Kavana site embeds the self-hosted SDK without external requests', async (
   expect(await sprite.getAttribute('style')).toBeNull();
   await page.getByRole('button', { name: 'Ask the SDK to wave' }).click();
   const zoomies = page.getByRole('button', { name: 'Send Kavana roaming' });
+  await page.evaluate(() => {
+    const pet = document.querySelector('#sdk-kavana')!;
+    (window as typeof window & { roamStarts?: number }).roamStarts = 0;
+    pet.addEventListener('codex-pet-roam-start', () => (window as typeof window & { roamStarts: number }).roamStarts += 1);
+  });
   await zoomies.click();
   await expect(pet).toHaveAttribute('data-page-roaming', '');
-  await expect(zoomies).toBeDisabled();
-  await expect(zoomies).toBeEnabled({ timeout: 8_000 });
-  expect(await pet.getAttribute('data-page-roaming')).toBeNull();
+  await expect(zoomies).toHaveCount(0);
+  expect(await pet.evaluate((element: HTMLElement & { startRoaming: () => Promise<boolean> }) => element.startRoaming())).toBe(true);
+  expect(await page.evaluate(() => (window as typeof window & { roamStarts: number }).roamStarts)).toBe(1);
+  await page.waitForTimeout(7_000);
+  await expect(pet).toHaveAttribute('data-page-roaming', '');
+  expect(await page.locator('codex-pet-companion').count()).toBe(1);
   expect(externalRequests).toEqual([]);
 });
 

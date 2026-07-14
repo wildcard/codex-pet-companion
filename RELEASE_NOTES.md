@@ -1,11 +1,12 @@
-# Codex Pet Companion 0.2.0
+# Codex Pet Companion 0.3.0
 
-This release lets any live pet do page-wide zoomies and makes CDN versus self-hosted security guidance explicit.
+This release brings the long-running Caro companion route to any site and removes redundant pet loading during custom-element setup.
 
-- Call `await pet.zoomies()` to send an inline or floating companion roaming across the viewport.
-- Reduced-motion users receive a wave without page movement.
-- SDK and Kavana field guides include accessible zoomies controls.
-- CDN snippets are pinned with SRI; strict-CSP self-hosting examples show `manifest-url` and `atlas-url` explicitly.
+- Call `await pet.startRoaming()` to move an already-loaded inline pet into a persistent, natural route across the viewport.
+- The route uses the same deliberate running, waving, looking, jumping, working, and review cadence as caro.sh.
+- Repeated calls are idempotent: one element, one route timer, and no duplicate manifest or atlas requests.
+- Parser upgrades and behavior-only config changes are coalesced so the pet loads once.
+- `zoomies()` remains available for a short, one-off page animation.
 
 The package continues to include:
 
