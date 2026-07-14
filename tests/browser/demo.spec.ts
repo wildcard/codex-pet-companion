@@ -2,7 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test('Kavana loads transparently under a self-only script CSP', async ({ page }) => {
   const externalRequests: string[] = [];
-  page.on('request', (request) => { if (!request.url().startsWith('http://127.0.0.1:4174')) externalRequests.push(request.url()); });
+  const origin = new URL(process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4174').origin;
+  page.on('request', (request) => { if (new URL(request.url()).origin !== origin) externalRequests.push(request.url()); });
   await page.goto('/');
   const pet = page.locator('#inline-pet');
   await expect(pet).toBeVisible();

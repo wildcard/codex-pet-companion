@@ -55,6 +55,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:browser": "playwright test",
+    "test:live": "PLAYWRIGHT_BASE_URL=https://pets.caro.sh playwright test",
+    "test:adoption:kavana": "playwright test --config playwright.kavana.config.ts",
     "test:examples": "pnpm --recursive --filter './examples/**' build",
     "test:pack": "node scripts/package-smoke.mjs",
     "check:bundle": "node scripts/check-bundle.mjs",
