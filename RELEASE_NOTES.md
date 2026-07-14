@@ -1,6 +1,8 @@
-# Codex Pet Companion 0.3.0
+# Codex Pet Companion 0.3.1
 
 This release brings the long-running Caro companion route to any site and removes redundant pet loading during custom-element setup.
+
+The 0.3.1 patch ensures a user-requested `startRoaming()` launch overrides `behaviors.roam: false`, which continues to control ambient automatic roaming only.
 
 - Call `await pet.startRoaming()` to move an already-loaded inline pet into a persistent, natural route across the viewport.
 - The route uses the same deliberate running, waving, looking, jumping, working, and review cadence as caro.sh.

@@ -9,15 +9,15 @@ This is a community project. It is not affiliated with or endorsed by OpenAI. Co
 ## One-line CDN embed
 
 ```html
-<script src="https://unpkg.com/codex-pet-companion@0.3.0/dist/codex-pet-companion.global.js"
-  integrity="sha384-KXVtGeBD2DiUJSgywbbRB9zA4ZxLkVlDsooJujID7XO9Ji2/u9s/LQJn8qJ3oBdp"
+<script src="https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js"
+  integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II"
   crossorigin="anonymous"></script>
 <codex-pet-companion></codex-pet-companion>
 ```
 
 The script defines `<codex-pet-companion>` and resolves Kavana from the same pinned npm package. Pin the version in production.
 
-The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.3.0/dist/codex-pet-companion.global.js`.
+The equivalent jsDelivr URL is `https://cdn.jsdelivr.net/npm/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js`.
 
 The bare CDN element loads Kavana's default manifest and atlas from the same pinned CDN package. For a strict-CSP or fully self-hosted deployment, host the bundle and pet files yourself and provide both `manifest-url` and `atlas-url` as shown below.
 
