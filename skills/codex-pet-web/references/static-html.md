@@ -3,8 +3,8 @@
 Use a pinned version in production:
 
 ```html
-<script src="https://unpkg.com/codex-pet-companion@0.3.0/dist/codex-pet-companion.global.js"
-  integrity="sha384-KXVtGeBD2DiUJSgywbbRB9zA4ZxLkVlDsooJujID7XO9Ji2/u9s/LQJn8qJ3oBdp"
+<script src="https://unpkg.com/codex-pet-companion@0.3.1/dist/codex-pet-companion.global.js"
+  integrity="sha384-HCdZidL2jzxEW9SQR6w9TAZGehFjyRvAFQwUvc+nBeiFZdpNVy5sSRFZtQRZD4II"
   crossorigin="anonymous"></script>
 <codex-pet-companion></codex-pet-companion>
 ```

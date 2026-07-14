@@ -29,9 +29,13 @@ test('Kavana site embeds the self-hosted SDK without external requests', async (
   await zoomies.click();
   await expect(pet).toHaveAttribute('data-page-roaming', '');
   await expect(zoomies).toHaveCount(0);
+  const startingTransform = await pet.evaluate((element) => getComputedStyle(element).transform);
+  await page.waitForTimeout(3_200);
+  const movedTransform = await pet.evaluate((element) => getComputedStyle(element).transform);
+  expect(movedTransform).not.toBe(startingTransform);
   expect(await pet.evaluate((element: HTMLElement & { startRoaming: () => Promise<boolean> }) => element.startRoaming())).toBe(true);
   expect(await page.evaluate(() => (window as typeof window & { roamStarts: number }).roamStarts)).toBe(1);
-  await page.waitForTimeout(7_000);
+  await page.waitForTimeout(4_000);
   await expect(pet).toHaveAttribute('data-page-roaming', '');
   expect(await page.locator('codex-pet-companion').count()).toBe(1);
   expect(externalRequests).toEqual([]);

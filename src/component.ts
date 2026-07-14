@@ -234,7 +234,7 @@ export class CodexPetCompanionElement extends HTMLElementBase {
       await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
     }
     if (!this.isConnected || !this.#persistentRoaming) return false;
-    this.#startRoam();
+    this.#startRoam(true);
     this.dispatchEvent(new CustomEvent('codex-pet-roam-start', { bubbles: true }));
     return true;
   }
@@ -392,9 +392,9 @@ export class CodexPetCompanionElement extends HTMLElementBase {
     root.querySelector<HTMLButtonElement>('.tuck')!.hidden = !this.#behaviors().tuck;
   }
 
-  #startRoam(): void {
+  #startRoam(force = false): void {
     clearTimeout(this.#roamTimer);
-    if (this.#reducedMotion || !this.#behaviors().roam || this.#sleeping || this.#tucked) {
+    if (this.#reducedMotion || (!force && !this.#behaviors().roam) || this.#sleeping || this.#tucked) {
       this.#place(this.#position.x || 22, this.#position.y || innerHeight - 150, 0); return;
     }
     const route = [

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Let explicit `startRoaming()` calls begin the persistent route even when ambient auto-roaming is disabled in component behaviors.
+- Verify Kavana changes viewport position after activation, in addition to remaining active and singular.
+
 ## 0.3.0
 
 - Add idempotent `startRoaming()` for persistent page roaming using the slower, natural Caro route.
