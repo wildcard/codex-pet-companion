@@ -5,7 +5,7 @@
   "type": "module",
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Project Caro contributors",
-  "homepage": "https://pets.caro.sh",
+  "homepage": "https://codexpet.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wildcard/codex-pet-companion.git"
@@ -63,7 +63,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:browser": "playwright test",
-    "test:live": "PLAYWRIGHT_BASE_URL=https://pets.caro.sh playwright test",
+    "test:live": "PLAYWRIGHT_BASE_URL=https://codexpet.dev playwright test",
     "test:adoption:kavana": "playwright test --config playwright.kavana.config.ts",
     "test:adoption:caro": "playwright test --config playwright.caro.config.ts",
     "test:examples": "pnpm --recursive --filter './examples/**' build",

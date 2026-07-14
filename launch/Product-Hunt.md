@@ -11,7 +11,7 @@ The hook is delight. The substance is a real compatibility layer: one package, a
 ## Submission fields
 
 - Product name: `Codex Pet Web`
-- Primary URL: `https://pets.caro.sh`
+- Primary URL: `https://codexpet.dev`
 - Tagline (56 characters): `Put any Codex pet on any website with one tiny SDK`
 - Pricing: `Free`
 - Suggested launch tags: `Developer Tools`, `Open Source`, `Web Development`

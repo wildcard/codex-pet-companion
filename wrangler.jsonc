@@ -2,10 +2,16 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "codex-pet-companion",
   "compatibility_date": "2026-07-13",
+  "main": "./worker.js",
   "assets": {
     "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": true,
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
-  "routes": [{ "pattern": "pets.caro.sh", "custom_domain": true }]
+  "routes": [
+    { "pattern": "codexpet.dev", "custom_domain": true },
+    { "pattern": "pets.caro.sh", "custom_domain": true }
+  ]
 }

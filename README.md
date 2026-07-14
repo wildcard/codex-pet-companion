@@ -2,7 +2,7 @@
 
 Put any valid Codex pet on any website with one Web Component. Kavana, the black-and-tan Shiba Inu from Project Caro, is included as the default.
 
-Try the live field guide at [pets.caro.sh](https://pets.caro.sh) and Kavana's real downstream integration at [kavana.caro.sh](https://kavana.caro.sh/#web-sdk).
+Try the live field guide at [codexpet.dev](https://codexpet.dev) and Kavana's real downstream integration at [kavana.pet](https://kavana.pet/#web-sdk).
 
 This is a community project. It is not affiliated with or endorsed by OpenAI. Codex is an OpenAI product.
 
