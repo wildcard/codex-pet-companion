@@ -13,9 +13,9 @@ This quick-start loads Kavana's default files from the pinned CDN package. To se
 
 ```html
 <codex-pet-companion
-  manifest-url="/pets/my-pet/pet.json"
-  atlas-url="/pets/my-pet/spritesheet.webp"
+  manifest-url="/codex-pets/my-pet/pet.json"
+  atlas-url="/codex-pets/my-pet/spritesheet.webp"
 ></codex-pet-companion>
 ```
 
-For strict CSP, self-host both the JavaScript bundle and pet files and allow only `'self'` for scripts and images.
+For strict CSP, run `npx codex-pet-companion init .`, self-host the JavaScript bundle and generated pet files, and use the local `manifest-url` and `atlas-url` paths. The bare element requires unpkg in `connect-src` and `img-src`.
